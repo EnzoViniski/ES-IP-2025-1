@@ -6,67 +6,40 @@
     <title>Projeto</title>
     <style>
         .container {
-          max-width: 800px;
-          margin: 0 auto;
-          text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
-    
-        img {
-          max-width: 100%;
-          height: auto;
+
+        form {
+            margin-top: 20px;
         }
-    
-        a {
-          display: inline-block;
-          margin: 5px;
+
+        label, input {
+            display: block;
+            margin: 10px auto;
         }
-      </style>
-    
-<link rel="stylesheet" href="index.css">
+
+        button {
+            margin: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="container">
-    <h1 id="titulo-principal">Enzo Viniski de Castro</h1>
-    <a href="https://google.com" target="_blank">Sobre</a>
-    <p> </p>
-    <a href="https://youtube.com" target="_blank">Projetos</a>
-    <p> </p>
-    <a href="https://instagram.com" target="_blank">Contatos</a>
-    <h2 id="sub">Sobre</h2>
-    <p>Sou um aluno cursando Engenharia de Software na UFG e tenho 18 anos.</p>
-    <img src="https://s3.amazonaws.com/media.wikiaves.com.br/images/511/115562_0ea7667859a10dffdd37650a56edeff3.jpg" alt="Foto de Enzo Viniski" width="200">
-    <h3 id="sub">Projeto 1</h3>
-    <p> </p>
-    <p>Um site para venda de cookies online.</p>
-    <a href="https://cookies.com.br" target="_blank">cookies.com.br</a>
-    <p> </p>
-    <h4 id="sub">Projeto 2</h4>
-    <p> </p>
-    <p>Uma pagina de troca de mensagens.</p>
-    <a href="https://messages.com" target="_blank">messages.com</a>
-    <p> </p>
-    <h5 id="sub">Me contate:</h5>
-    <p> </p>
-    <p>   </p>
-    <form>
-      <label for="nome">Seu Nome:</label><br>
-      <input type="text" id="nome" name="nome"><br><br>
-      
-      <label for="email">Seu E-mail:</label><br>
-      <input type="email" id="email" name="email"><br><br>
-            
-      <label for="mensagem">Mensagem:</label><br>
-      <textarea id="mensagem" name="mensagem" rows="4" cols="50"></textarea><br><br>
-      
-      <button type="submit">Enviar</button>
-      <button type="reset">Limpar</button>
- </form>
-    
+        <h5 id="sub">Login:</h5>
 
-    
-</div>
-<footer>
-    <p id="rodape">&copy; 2023 Enzo Viniski de Castro. Todos os direitos reservados.</p>
-</footer>
+        <form>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha">
+
+            <button type="submit">Entrar</button>
+            <button type="reset">Limpar</button>
+        </form>
+    </div>
 </body>
 </html>
