@@ -88,3 +88,18 @@ button:hover {
   background-color: #555;
 }
 
+#links p {
+  margin: 2px 0;
+}
+
+#links a {
+  font-size: 14px;
+  text-decoration: none;
+  color: rgb(122, 92, 255);
+}
+
+#links a:hover {
+  color: rgb(11, 1, 58);
+  text-decoration: underline;
+}
+
