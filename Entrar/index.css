@@ -1,16 +1,20 @@
 body, html {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('https://sdmntpreastus.oaiusercontent.com/files/00000000-f94c-61f9-9471-b7aaf6655964/raw?se=2025-05-21T23%3A31%3A09Z&sp=r&sv=2024-08-04&sr=b&scid=ed5630cd-aacb-570e-9500-4646b38d99f8&skoid=5cab1ff4-c20d-41dc-babb-df0c2cc21dd4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-21T20%3A40%3A22Z&ske=2025-05-22T20%3A40%3A22Z&sks=b&skv=2024-08-04&sig=jPFXC8XyRXnus1rv9e5PeQuHObBed%2BkKNDIVdobLSr0%3D');
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('https://sdmntpreastus.oaiusercontent.com/files/00000000-f94c-61f9-9471-b7aaf6655964/raw?se=2025-05-22T03%3A59%3A03Z&sp=r&sv=2024-08-04&sr=b&scid=2b840d7d-6f46-5988-9cf1-93b5fea4ef5b&skoid=61180a4f-34a9-42b7-b76d-9ca47d89946d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-21T20%3A30%3A58Z&ske=2025-05-22T20%3A30%3A58Z&sks=b&skv=2024-08-04&sig=FXNVy5gH07RpKA10kNsvbQmI1vTcRiVcRc7wB8UZECc%3D'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .container {
@@ -25,4 +29,13 @@ body, html {
 
 form {
   margin-bottom: 20px;
+}
+
+#titulo-principal {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(to right, #59a69a 50%, #56a3c8 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
