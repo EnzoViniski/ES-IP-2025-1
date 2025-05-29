@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Tela de Cadastro - Câncer Cervical</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+
+    .topbar {
+      background-color: #37BAA8;
+      height: 50px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 30px;
+    }
+
+    .topbar a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .background {
+      background: url('https://sdmntprwestus2.oaiusercontent.com/files/00000000-ec40-61f8-9e82-deea43cc4489/raw?se=2025-05-26T23%3A17%3A24Z&sp=r&sv=2024-08-04&sr=b&scid=58674e0d-6bd9-5304-8c5b-5e33a6029ee5&skoid=c953efd6-2ae8-41b4-a6d6-34b1475ac07c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-26T09%3A22%3A49Z&ske=2025-05-27T09%3A22%3A49Z&sks=b&skv=2024-08-04&sig=YU7Fi7baAdLvq9KcBg9yMinjwixh5G0CrYqz6mLE1%2B8%3D') no-repeat center center;
+      background-size: cover;
+      height: calc(100% - 50px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .login-box h2 span {
+      font-weight: normal;
+    }
+
+    .login-box b {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .login-box select,
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-box input::placeholder {
+      color: #17E29B;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-box a {
+      font-size: 12px;
+      text-decoration: none;
+      color: #17E29B;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 35px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      color: #17E29B;
+    }
+
+    /* Estilos dinâmicos */
+    .azul input::placeholder,
+    .azul .toggle-password,
+    .azul a {
+      color: #5DA4DE;
+    }
+
+    .azul button {
+      background-color: #5DA4DE;
+      color: white;
+    }
+
+    .verde input::placeholder,
+    .verde .toggle-password,
+    .verde a {
+      color: #17E29B;
+    }
+
+    .verde button {
+      background-color: #17E29B;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="#">Home</a>
+    <a href="#">Entrar</a>
+    <a href="#">Cadastrar</a>
+  </div>
+
+  <div class="background">
+    <div class="login-box verde" id="loginBox">
+      <h2 id="titulo">
+        <span style="color:#17E29B;">CANCER</span> 
+        <span style="color:#4FA8E3;">CERVICAL</span>
+      </h2>
+
+      <b>CADASTRAR:</b>
+      <select id="tipoUsuario" onchange="atualizarInterface()">
+        <option value="paciente">Paciente</option>
+        <option value="profissional">Profissional</option>
+      </select>
+      <input type="text" id="campoUsuario" placeholder="Informe seu e-mail:">
+      <div class="password-wrapper">
+        <input type="password" id="senha" placeholder="Senha:">
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+      <div class="password-wrapper">
+        <input type="password" id="senha" placeholder="Confirme a senha:">
+        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      </div>
+      <button>Avançar</button>
+      <p> Já tem uma conta? <a href="#"><span style="text-decoration: underline;"> Entrar</span></a> </p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const senhaInput = document.getElementById("senha");
+      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+    }
+
+    function atualizarInterface() {
+      const tipo = document.getElementById("tipoUsuario").value;
+      const loginBox = document.getElementById("loginBox");
+      const campoUsuario = document.getElementById("campoUsuario");
+
+      if (tipo === "profissional") {
+        loginBox.classList.remove("verde");
+        loginBox.classList.add("azul");
+        campoUsuario.placeholder = "Informe seu e-mail:";
+      } else {
+        loginBox.classList.remove("azul");
+        loginBox.classList.add("verde");
+        campoUsuario.placeholder = "Informe seu e-mail:";
+      }
+    }
+  </script>
+
+</body>
+</html>
