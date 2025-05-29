@@ -1,31 +1,207 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <title>Tela de Cadastro - Câncer Cervical</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+
+    .topbar {
+      background-color: #37BAA8;
+      height: 50px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 30px;
+    }
+
+    .topbar a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .background {
+      background: url('https://sdmntprwestus2.oaiusercontent.com/files/00000000-ec40-61f8-9e82-deea43cc4489/raw?se=2025-05-26T23%3A17%3A24Z&sp=r&sv=2024-08-04&sr=b&scid=58674e0d-6bd9-5304-8c5b-5e33a6029ee5&skoid=c953efd6-2ae8-41b4-a6d6-34b1475ac07c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-26T09%3A22%3A49Z&ske=2025-05-27T09%3A22%3A49Z&sks=b&skv=2024-08-04&sig=YU7Fi7baAdLvq9KcBg9yMinjwixh5G0CrYqz6mLE1%2B8%3D') no-repeat center center;
+      background-size: cover;
+      height: calc(100% - 50px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box, .form-box {
+      background-color: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 1100px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 span:first-child {
+      color: #17E29B;
+    }
+
+    h2 span:last-child {
+      color: #4FA8E3;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: bold;
+      color: #17E29B;
+    }
+
+    input, select {
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #17E29B;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .voltar-btn {
+      grid-column: 1;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .avancar-btn {
+      grid-column: 3;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .login-link {
+      grid-column: 1 / -1;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Câncer Cervical</h1> 
-        <h5 id="sub">Cadastrar:</h5>
+  <div class="topbar">
+    <a href="#">Home</a>
+    <a href="#">Entrar</a>
+    <a href="#">Cadastrar</a>
+  </div>
 
-        <form>
-            <p><label for="email">Informe seu e-mail ou CPF:</label></p>
-            <p><input type="text" id="email" name="email"></p>
-
-            <p><label for="senha">Senha:</label></p>
-            <p><input type="password" id="senha" name="senha"></p>
-
-            <button type="submit">Cadastrar</button>
-            <button type="reset">Limpar</button>
-
-            <div id="links">
-                <p>Esqueceu a senha?<a href="#"> Clique aqui</a></p>
-                <p>Ainda não tem conta?<a href="#"> Clique e cadastre-se</a></p>
-            </div>
-        </form>
+  <div class="background">
+    <!-- Primeira tela de login/cadastro -->
+    <div class="login-box" id="tela1">
+      <h2><span>CANCER</span> <span>CERVICAL</span></h2>
+      <b>CADASTRAR:</b>
+      <select id="tipoUsuario" onchange="atualizarInterface()">
+        <option value="paciente">Paciente</option>
+        <option value="profissional">Profissional</option>
+      </select>
+      <input type="text" id="campoUsuario" placeholder="Informe seu e-mail:">
+      <input type="password" placeholder="Senha:">
+      <input type="password" placeholder="Confirme a senha:">
+      <button onclick="mostrarSegundaTela()">Avançar</button>
+      <p>Já tem uma conta? <a href="#">Entrar</a></p>
     </div>
+
+    <!-- Segunda tela com formulário completo -->
+    <div class="form-box" id="tela2" style="display:none;">
+      <h2><span>CANCER</span> <span>CERVICAL</span></h2>
+      <b>CADASTRAR:</b>
+      <form>
+        <div>
+          <label>Nome completo:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>Data de nascimento:*</label>
+          <input type="date" required>
+        </div>
+        <div>
+          <label>Telefone:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>Nome completo da mãe:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>Cartão SUS:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>Apelido:</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>CPF:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>RG:*</label>
+          <input type="text" required>
+        </div>
+        <div>
+          <label>Raça:</label>
+          <input type="text">
+        </div>
+        <div class="voltar-btn">
+          <button type="button" onclick="voltarTela1()">← Voltar</button>
+        </div>
+        <div class="avancar-btn">
+          <button type="submit">AVANÇAR</button>
+        </div>
+        <div class="login-link">
+          <p>Já tem uma conta? <a href="#">Entrar</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function atualizarInterface() {
+      const tipo = document.getElementById("tipoUsuario").value;
+      const campoUsuario = document.getElementById("campoUsuario");
+      campoUsuario.placeholder = tipo === "profissional" ? "Informe seu e-mail:" : "Informe seu e-mail:";
+    }
+
+    function mostrarSegundaTela() {
+      document.getElementById("tela1").style.display = "none";
+      document.getElementById("tela2").style.display = "block";
+    }
+
+    function voltarTela1() {
+      document.getElementById("tela2").style.display = "none";
+      document.getElementById("tela1").style.display = "block";
+    }
+  </script>
 </body>
 </html>
