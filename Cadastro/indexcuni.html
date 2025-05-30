@@ -34,8 +34,10 @@
     }
 
     .background {
-      background: url('https://sdmntprwestus2.oaiusercontent.com/files/00000000-ec40-61f8-9e82-deea43cc4489/raw?se=2025-05-26T23%3A17%3A24Z&sp=r&sv=2024-08-04&sr=b&scid=58674e0d-6bd9-5304-8c5b-5e33a6029ee5&skoid=c953efd6-2ae8-41b4-a6d6-34b1475ac07c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-26T09%3A22%3A49Z&ske=2025-05-27T09%3A22%3A49Z&sks=b&skv=2024-08-04&sig=YU7Fi7baAdLvq9KcBg9yMinjwixh5G0CrYqz6mLE1%2B8%3D') no-repeat center center;
+      background-image: url('../public/ARTE_FELIPENHA.png');
       background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center ;
       height: calc(100% - 50px);
       display: flex;
       justify-content: center;
@@ -111,8 +113,6 @@
       font-size: 16px;
       color: #17E29B;
     }
-
-    /* Estilos dinâmicos */
     .azul input::placeholder,
     .azul .toggle-password,
     .azul a {
@@ -124,6 +124,10 @@
       color: white;
     }
 
+    .azul button:hover {
+      background-color: #2A74A6;
+    }
+
     .verde input::placeholder,
     .verde .toggle-password,
     .verde a {
@@ -133,6 +137,10 @@
     .verde button {
       background-color: #17E29B;
       color: white;
+    }
+
+    .verde button:hover {
+      background-color: #0db57a;
     }
   </style>
 </head>
@@ -156,25 +164,29 @@
         <option value="paciente">Paciente</option>
         <option value="profissional">Profissional</option>
       </select>
-      <input type="text" id="campoUsuario" placeholder="Informe seu e-mail:">
+      <input type="text" id="campoUsuario" placeholder="Informe seu e-mail:" required>
       <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Senha:">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        <input type="password" id="senha1" placeholder="Senha:" required>
+        <span class="toggle-password" onclick="togglePassword('senha1')">👁️</span>
       </div>
       <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Confirme a senha:">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        <input type="password" id="senha2" placeholder="Confirme a senha:" required>
+        <span class="toggle-password" onclick="togglePassword('senha2')">👁️</span>
       </div>
-      <button>Avançar</button>
+
+      <div class="avancar-btn">
+        <button type="submit" onclick="mostrarSegundaTela()">Avançar</button>
+      </div>
       <p> Já tem uma conta? <a href="#"><span style="text-decoration: underline;"> Entrar</span></a> </p>
     </div>
   </div>
 
   <script>
-    function togglePassword() {
-      const senhaInput = document.getElementById("senha");
+    function togglePassword(id) {
+      const senhaInput = document.getElementById(id);
       senhaInput.type = senhaInput.type === "password" ? "text" : "password";
     }
+
 
     function atualizarInterface() {
       const tipo = document.getElementById("tipoUsuario").value;
