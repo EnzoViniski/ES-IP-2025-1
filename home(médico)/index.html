@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Projeto Câncer Cervical</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <header>
+    <h1><span class="verde">CÂNCER</span> <span class="azul">CERVICAL</span></h1>
+    <nav>
+      <a href="#" class="nav-link active" onclick="navegar('home', this)">Home</a>
+      <a href="#" class="nav-link" onclick="navegar('agenda', this)">Painel do profissional</a>
+      <a href="#" class="nav-link" onclick="navegar('configuracoes', this)">Configurações</a>
+      
+    </nav>
+    
+  </header>
+  <div class="usuario">Dr. Fulano Silva</div>
+
+  <!-- Tela inicial -->
+<section id="home">
+  <div class="boas-vindas">
+    <h2>Olá, seja bem-vindo(a)!</h2>
+    <p>Você pode conferir sua agenda agora ou administrar pacientes. Aproveite também para lançar o resultado de um exame.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card" onclick="navegar('agenda')">
+      <h3 class="card-title">Agenda de exames</h3>
+      <p class="card-text">Consulte e edite sua agenda de exames</p>
+    </div>
+
+    <div class="card" onclick="navegar('pacientes')">
+      <h3 class="card-title">Pacientes</h3>
+      <p class="card-text">Cadastre, busque pacientes e edite dados de pacientes</p>
+    </div>
+
+    <div class="card" onclick="navegar('resultados-exames')">
+      <h3 class="card-title">Resultados de exames</h3>
+      <p class="card-text">Lance resultados de exames ou confira resultados anteriores</p>
+    </div>
+  </div>
+
+  </section>
+
+  <!-- Tela de Agenda -->
+  <section id="agenda" class="hidden">
+    <h2>Exames agendados</h2>
+    <div class="painel">
+      <div class="calendario">
+        <h3>Maio 2025</h3>
+        <div class="dias">
+          <div>28</div><div>29</div><div>30</div>
+          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+          <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+          <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div>
+          <div>16</div><div>17</div><div>18</div><div>19</div><div>20</div>
+          <div>21</div><div>22</div><div>23</div><div>24</div><div>25</div>
+          <div class="selecionado">26</div>
+          <div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+        </div>
+        <h3>Junho 2025</h3>
+        <div class="dias">
+          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+          <div>6</div><div>7</div>
+        </div>
+      </div>
+
+      <div class="detalhes-exame">
+        <h3>25 Maio 2025</h3>
+        <p><strong>Tipo de exame:</strong> Papanicolau</p>
+        <p><strong>Paciente:</strong> Janete Duarte Silva</p>
+        <p><strong>Horário:</strong> 10:00</p>
+        <p><strong>Local:</strong> Hospital</p>
+      </div>
+    </div>
+    <button onclick="navegar('home')">Voltar</button>
+  </section>
+
+  <!-- Tela de Pacientes -->
+  <section id="pacientes" class="hidden">
+    <h2>Paciente</h2>
+    <div class="tabs">
+      <button class="tab active" onclick="mostrarAba('buscar', this)">Buscar paciente</button>
+      <button class="tab" onclick="mostrarAba('cadastrar', this)">Cadastrar paciente</button>
+    </div>
+
+    <div id="buscar" class="tab-content">
+      <label for="cpf"><strong>Informe o CPF do Paciente:</strong></label>
+      <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF">
+      <button>Buscar</button>
+    </div>
+
+    <div id="cadastrar" class="tab-content hidden">
+      <form>
+        <div class="cadastro-linha">
+          <label>Nome completo:
+            <input type="text">
+          </label>
+          <label>E-mail:
+            <input type="text">
+          </label>
+          <label>Apelido:
+            <input type="text">
+          </label>
+        </div>
+
+        <div class="cadastro-linha">
+          <label>Nome completo da mãe:
+            <input type="text">
+          </label>
+          <label>Telefone:
+            <input type="text">
+          </label>
+          <label>CEP:
+            <input type="text">
+          </label>
+        </div>
+
+        <div class="cadastro-linha">
+          <label>CPF:
+            <input type="text">
+          </label>
+          <label>Escolaridade:
+            <input type="text">
+          </label>
+          <label>Logradouro:
+            <input type="text">
+          </label>
+        </div>
+
+        <div class="cadastro-linha">
+          <label>Data de nascimento:
+            <input type="text">
+          </label>
+          <label>Raça:
+            <input type="text">
+          </label>
+          <label>Número:
+            <input type="text">
+          </label>
+        </div>
+
+        <div class="cadastro-linha">
+          <label>Cartão SUS:
+            <input type="text">
+          </label>
+          <label>Nacionalidade:
+            <input type="text">
+          </label>
+          <label>Complemento:
+            <input type="text">
+          </label>
+        </div>
+
+        <div class="cadastro-linha">
+          <label>RG:
+            <input type="text">
+          </label>
+          <label>UF:
+            <input type="text">
+          </label>
+        </div>
+
+        <button type="submit">CADASTRAR</button>
+      </form>
+    </div>
+
+    <button onclick="navegar('home')">Voltar</button>
+  </section>
+
+  <!-- Tela de Configurações -->
+  <section id="configuracoes" class="hidden">
+    <h2>Informações da conta</h2>
+    
+    <div class="info-conta">
+      <div class="perfil">
+        <img src="perfil.png" alt="Imagem de perfil">
+        <button>Alterar imagem</button>
+      </div>
+      
+      <div class="dados">
+        <label>CPF <input type="text" value="091.412.567-92"></label>
+        <label>CRM <input type="text" value="CRM-SP 123456"></label>
+        <label>Nome <input type="text" value="Dr. fulano da Silva"></label>
+        <label>Email <input type="text" value="silva.fulano@yahoo.com.br"></label>
+        <label>Telefone <input type="text" value="(11) 96572-8491"></label>
+        <label>Senha <input type="password" value="******"></label>
+        <button>Alterar dados</button>
+      </div>
+
+      <div class="notificacoes">
+        <h3>Configurações de notificação</h3>
+        <label><input type="checkbox"> Receber notificações por e-mail</label>
+        <label><input type="checkbox" checked> Receber notificações por SMS</label>
+      </div>
+
+      <button class="sair">Sair</button>
+    </div>
+  </section>
+
+  <!-- Tela de Resultados de Exames -->
+  <section id="resultados-exames" class="hidden">
+    <h2>Resultados de Exames</h2>
+
+    <div class="resultados-container">
+      <div class="buscar-exame">
+        <h3>Buscar paciente</h3>
+        <label for="busca-paciente">
+          <span>Informe o nome ou CPF do Paciente:</span>
+          <input type="text" id="busca-paciente" placeholder="Digite o nome ou CPF">
+        </label>
+        <button>BUSCAR</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function navegar(destino, elemento) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(destino).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      if (elemento) elemento.classList.add('active');
+    }
+
+    function mostrarAba(abaId, elemento) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+
+      document.getElementById(abaId).classList.remove('hidden');
+      elemento.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+                                       
