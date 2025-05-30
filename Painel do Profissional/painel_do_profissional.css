@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px 40px;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.green { color: green; }
+.blue { color: dodgerblue; }
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+}
+
+.nav-links .active {
+  font-weight: bold;
+}
+
+.container {
+  padding: 40px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: #e6e6e6;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: -10px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+.active-tab {
+  color: black !important;
+}
+
+/* Box principal */
+.content-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.content-header h2 {
+  font-size: 18px;
+  color: #999;
+}
+
+.content-header .active-tab {
+  color: black;
+}
+
+/* Formulário de busca */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-section label {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.search-section input {
+  padding: 10px;
+  border: none;
+  background-color: #e0dcdc;
+  border-radius: 5px;
+}
+
+.search-section button {
+  padding: 10px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Resultados */
+.results {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Card de paciente */
+.patient-card {
+  display: flex;
+  align-items: center;
+  background-color: #e0f0ff;
+  border-left: 4px solid #69b7ff;
+  padding: 15px;
+  border-radius: 8px;
+  gap: 15px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #ccc;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.info {
+  flex-grow: 1;
+}
+
+.select-btn {
+  padding: 8px 12px;
+  background-color: #aacbe6;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

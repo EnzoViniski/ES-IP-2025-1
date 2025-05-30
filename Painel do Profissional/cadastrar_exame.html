@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastrar Exame</title>
+  <link rel="stylesheet" href="cadastrar_exame.css" />
+</head>
+<body>
+  <header>
+    <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#" class="active">Painel do profissional</a>
+      <a href="#">Configurações</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <span class="inactive">Exames agendados</span>
+      <span class="active">Paciente</span>
+      <span class="inactive">Resultados de exames</span>
+    </div>
+
+    <div class="container">
+      <div class="patient-box">
+        <img src="https://via.placeholder.com/100" alt="Paciente" />
+        <p><strong>Nome:</strong><br>Janete Duarte Silva</p>
+        <p><strong>CPF:</strong><br>032.745.889-82</p>
+        <p><strong>RG:</strong><br>6026530</p>
+        <p><strong>Data de nascimento:</strong><br>10/05/2000</p>
+        <p><strong>Telefone:</strong><br>(62)99121-3285</p>
+      </div>
+
+      <div class="form-box">
+        <h2>Novo exame</h2>
+        <form>
+          <label>Informe o tipo de exame:</label>
+          <input type="text" />
+
+          <label>Informe o local:</label>
+          <input type="text" />
+
+          <label>Informe a data:</label>
+          <input type="date" />
+
+          <label>Informe o horário:</label>
+          <input type="time" />
+
+          <div class="actions">
+            <a href="cadastro_paciente.html" class="back-link">← Voltar</a>
+            <button type="submit">CADASTRAR EXAME</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

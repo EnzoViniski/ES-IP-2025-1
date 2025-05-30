@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dados da Paciente</title>
+  <link rel="stylesheet" href="dados_paciente.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="painel_do_profissional.html">Home</a></li>
+        </li><a href="#" class="active">Painel do profissional</a></li>
+        <li><a href="#">Configurações</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="back-button">
+      <a href="painel_do_profissional.html">← Voltar</a>
+    </div>
+
+    <section class="exams">
+      <div class="next-exams">
+        <h2>Próximos exames:</h2>
+        <div class="exam-card">
+          <h3>Exame citopatológico</h3>
+          <p><strong>Data:</strong> 26/05/2025</p>
+          <p><strong>Horário:</strong> 10:00</p>
+          <p><strong>Local:</strong> Hospital</p>
+        </div>
+        <div class="exam-card">
+          <h3>Colposcopia</h3>
+          <p><strong>Data:</strong> 01/06/2025</p>
+          <p><strong>Horário:</strong> 10:00</p>
+          <p><strong>Local:</strong> Hospital</p>
+        </div>
+        <a href="cadastro_paciente.html" class="gray-button">Novo exame</a>
+      </div>
+
+      <div class="history">
+        <h2>Histórico de exames</h2>
+        <table>
+          <tr>
+            <th>Data</th>
+            <th>Tipo de exame</th>
+          </tr>
+          <tr>
+            <td>26/05/2024</td>
+            <td>Exame citopatológico</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button class="blue-button">⬇ Baixar resultado</button>
+            </td>
+          </tr>
+          <tr>
+            <td>01/06/2024</td>
+            <td>Colposcopia</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button class="blue-button">⬇ Baixar resultado</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="profile">
+        <div class="avatar"></div>
+        <div class="info">
+          <p><strong>Nome:</strong> Janete Duarte Silva</p>
+          <p><strong>CPF:</strong> 032.745.889-82</p>
+          <p><strong>RG:</strong> 6026530</p>
+          <p><strong>Data de nascimento:</strong> 10/05/2000</p>
+          <p><strong>Telefone:</strong> (62)99121-3285</p>
+        </div>
+        <button class="blue-button">Alterar dados</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
