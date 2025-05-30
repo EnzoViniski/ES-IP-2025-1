@@ -131,16 +131,21 @@
     .verde input::placeholder,
     .verde .toggle-password,
     .verde a {
-      color: #17E29B;
+      color: #4FA8E3;
     }
 
     .verde button {
-      background-color: #17E29B;
+      background-color: #4FA8E3;
       color: white;
     }
 
     .verde button:hover {
-      background-color: #0db57a;
+      background-color: #2A74A6;
+    }
+
+    .text {
+      color: #4FA8E3;
+      text-align: left;
     }
   </style>
 </head>
@@ -160,31 +165,30 @@
       </h2>
 
       <b>CADASTRAR:</b>
-      <select id="tipoUsuario" onchange="atualizarInterface()">
-        <option value="paciente">Paciente</option>
-        <option value="profissional">Profissional</option>
-      </select>
-      <input type="text" id="campoUsuario" placeholder="Informe seu e-mail:">
-      <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Senha:">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+      <div class="text">
+        <label for="nome">Nome completo:*</label>
+        <input type="text" id="campoUsuario" required>
+        <label for="CPF">CPF:*</label>
+        <input type="text" id="cpf" required>
+        <label for="CRM">CRM:*</label>
+        <input type="text" id="crm" required>
+        <label for="telefone">Telefone:*</label>
+        <input type="text" id="telefone" required>
       </div>
-      <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Confirme a senha:">
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
-      </div>
+
       <div class="avancar-btn">
-        <button type="submit" onclick="mostrarSegundaTela()">Avançar</button>
+        <button type="submit" onclick="mostrarSegundaTela()">Cadastrar</button>
       </div>
       <p> Já tem uma conta? <a href="#"><span style="text-decoration: underline;"> Entrar</span></a> </p>
     </div>
   </div>
 
   <script>
-    function togglePassword() {
-      const senhaInput = document.getElementById("senha");
+    function togglePassword(id) {
+      const senhaInput = document.getElementById(id);
       senhaInput.type = senhaInput.type === "password" ? "text" : "password";
     }
+
 
     function atualizarInterface() {
       const tipo = document.getElementById("tipoUsuario").value;
