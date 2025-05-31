@@ -116,35 +116,35 @@
     .azul input::placeholder,
     .azul .toggle-password,
     .azul a {
-      color: #5DA4DE;
+      color: #17E29B;
     }
 
     .azul button {
-      background-color: #5DA4DE;
+      background-color: #17E29B;
       color: white;
     }
 
     .azul button:hover {
-      background-color: #2A74A6;
+      background-color: #2da895;
     }
 
     .verde input::placeholder,
     .verde .toggle-password,
     .verde a {
-      color: #4FA8E3;
+      color: #17E29B;
     }
 
     .verde button {
-      background-color: #4FA8E3;
+      background-color: #17E29B;
       color: white;
     }
 
     .verde button:hover {
-      background-color: #2A74A6;
+      background-color: #2da895;
     }
 
     .text {
-      color: #4FA8E3;
+      color: #17E29B;
       text-align: left;
     }
   </style>
@@ -166,18 +166,50 @@
 
       <b>CADASTRAR:</b>
       <div class="text">
-        <label for="nome">Nome completo:*</label>
-        <input type="text" id="campoUsuario" required>
-        <label for="CPF">CPF:*</label>
-        <input type="text" id="cpf" required>
-        <label for="CRM">CRM:*</label>
-        <input type="text" id="crm" required>
-        <label for="telefone">Telefone:*</label>
-        <input type="text" id="telefone" required>
+        <label for="logradouro">Logradouro:</label>
+        <input type="text" id="logradouro"d>
+        <label for="numero">Número:</label>
+        <input type="text" id="numero"d>
+        <label for="complemento">Complemento:</label>
+        <input type="text" id="complemento"d>
+        <label for="uf">UF:</label>
+        <select id="uf">
+            <option value="Selecionar">Selecionar</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AP">AP</option>
+            <option value="AM">AM</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="DF">DF</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MT">MT</option>
+            <option value="MG">MG</option>
+            <option value="MS">MS</option>
+            <option value="PA">PA</option>
+            <option value="PB">PB</option>
+            <option value="PE">PE</option>
+            <option value="PR">PR</option>
+            <option value="PI">PI</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RS">RS</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="SC">SC</option>
+            <option value="SP">SP</option>
+            <option value="SE">SE</option>
+            <option value="TO">TO</option>
+        </select>
       </div>
 
       <div class="avancar-btn">
-        <button onclick="window.location.href='homeprofissional.html'">Cadastrar</button>
+        <button onclick="window.location.href='indexcpac3.html'">Voltar</button>
+      </div>
+      <div class="avancar-btn">
+        <button onclick="window.location.href='homepaciente.html'">Cadastrar</button>
       </div>
       <p> Já tem uma conta? <a href="indexentrarcadastraruniversal.html"><span style="text-decoration: underline;"> Entrar</span></a> </p>
     </div>
@@ -200,8 +232,8 @@
         loginBox.classList.add("azul");
         campoUsuario.placeholder = "Informe seu e-mail:";
       } else {
-        loginBox.classList.remove("azul");
-        loginBox.classList.add("verde");
+        loginBox.classList.remove("verde");
+        loginBox.classList.add("azul");
         campoUsuario.placeholder = "Informe seu e-mail:";
       }
     }
