@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home profissional</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 15px 40px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .green { color: #37BAA8; }
+    .blue { color: dodgerblue; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .nav-links .active {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .container {
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .welcome-section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .welcome-section h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .welcome-section p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .option-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .option-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .option-card h3 {
+      color: #4FA8E3;
+      margin-bottom: 10px;
+    }
+
+    .option-card p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .user-info {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px 40px;
+      gap: 20px;
+    }
+
+    .user-name {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="exames_agendados.html">Painel do profissional</a></li>
+        <li><a href="configuracoes.html">Configurações</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="user-info">
+    <span class="user-name">Dr.Fulano Silva</span>
+  </div>
+
+  <div class="container">
+    <section class="welcome-section">
+      <h1>Olá, seja bem-vindo(a)!</h1>
+      <p>Você pode conferir sua agenda agora ou administrar pacientes. Aproveite também parar lançar o resultado de um exame .</p>
+    </section>
+
+    <div class="options-grid">
+      <div class="option-card" onclick="location.href='#';">
+        <h3>Agenda de exames</h3>
+        <p>Consulte e edite sua agenda de exames</p>
+      </div>
+      <div class="option-card" onclick="location.href='#';">
+        <h3>Pacientes</h3>
+        <p>Cadastre, busque pacientes e edite dados de pacientes</p>
+      </div>
+      <div class="option-card" onclick="location.href='#';">
+        <h3>Resultado exames</h3>
+        <p>Lance resultados de exames ou confira resultados</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

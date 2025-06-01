@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novo Exame</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 30px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .green {
+      color: #37BAA8;
+    }
+
+    .blue {
+      color: #3da9fc;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #444;
+    }
+
+    nav a.active {
+      font-weight: bold;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      background-color: #eee;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .tabs a {
+      text-decoration: none;
+      color: #999;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .tabs a.active {
+      color: black;
+    }
+
+    .container {
+      display: flex;
+      padding: 30px;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .patient-box {
+      width: 200px;
+      background: #e6f0fb;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 0 3px #ccc;
+    }
+
+    .patient-box img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 800px;
+      box-shadow: 0 0 5px #ccc;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-grid {
+      display: flex;
+      gap: 40px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    label {
+      font-weight: bold;
+      color: #3da9fc;
+      margin-top: 10px;
+    }
+
+    input {
+      margin-top: 4px;
+      padding: 8px;
+      background-color: #e7dfdf;
+      border: none;
+      border-radius: 5px;
+    }
+
+    small {
+      font-size: 12px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .submit-button {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .submit-button button {
+      background-color: #3da9fc;
+      color: white;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-button button:hover {
+      background-color: #2A74A6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+    <nav>
+      <a href="homeprofissional.html">Home</a>
+      <a href="#" class="active">Painel do profissional</a>
+      <a href="configuracoes.html">Configurações</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <a href="exames_agendados.html" class="inactive">Exames agendados</a>
+      <a href="#" class="active">Paciente</a>
+      <a href="resultados_exames.html" class="inactive">Resultados de exames</a>
+    </div>
+
+    <div class="container">
+      <div class="patient-box">
+        <img src="https://via.placeholder.com/100" alt="Paciente">
+        <p><strong>Nome:</strong><br>Janete Duarte Silva</p>
+        <p><strong>CPF:</strong><br>032.745.889-82</p>
+        <p><strong>RG:</strong><br>6026530</p>
+        <p><strong>Data de nascimento:</strong><br>10/05/2000</p>
+        <p><strong>Telefone:</strong><br>(62)99121-3285</p>
+      </div>
+
+      <div class="form-container">
+        <h2>Novo exame</h2>
+        <form>
+          <div class="form-grid">
+            <div class="column">
+              <label>Motivo do exame:</label>
+              <input type="text" />
+              <label>Fez o exame preventivo (Papanicolau) alguma vez?</label>
+              <input type="text" />
+              <label>Usa DIU?</label>
+              <input type="text" />
+              <label>Está grávida?</label>
+              <input type="text" />
+              <label>Usa pílula anticoncepcional?</label>
+              <input type="text" />
+              <label>Usa hormônio/remédio para tratar menopausa?</label>
+              <input type="text" />
+            </div>
+
+            <div class="column">
+              <label>Já fez tratamento por radioterapia?</label>
+              <input type="text" />
+              <label>Data da última menstruação/regra</label>
+              <input type="text" />
+              <label>Teve ou tem algum sangramento após relações sexuais?</label>
+              <small>(não considerar primeira relação sexual na vida)</small>
+              <input type="text" />
+              <label>Tem ou teve algum sangramento após a menopausa?</label>
+              <small>(não considerar o(s) sangramento(s) na vigência de reposição hormonal)</small>
+              <input type="text" />
+            </div>
+          </div>
+          <div class="submit-button">
+            <a href="novoexame.html">
+              <button type="button">Avançar</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exames Agendados | Câncer Cervical</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    .header-container {
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 40px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .green { color: #37BAA8; }
+    .blue { color: dodgerblue; }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .nav-links .active {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .user-name {
+      font-weight: bold;
+    }
+
+    .calendar-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .container {
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tabs-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .tabs-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tabs-table td:hover {
+      background-color: #f9f9f9;
+    }
+
+    .tabs-table td.active {
+      border-bottom: 3px solid #37BAA8;
+      font-weight: bold;
+    }
+
+    .exams-box {
+      background-color: white;
+      padding: 30px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .exam-item {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .exam-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .exam-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .exam-detail {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .exam-detail-label {
+      font-weight: bold;
+      color: #555;
+      min-width: 80px;
+    }
+
+    .exam-actions {
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: #37BAA8;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      margin-right: 15px;
+    }
+
+    .action-btn:hover {
+      color: #2da895;
+    }
+
+    .form-box {
+      background-color: white;
+      padding: 30px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .submit-btn {
+      background-color: #17E29B;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #2da895;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-container">
+    <div class="navbar">
+      <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="homepaciente.html">Home</a></li>
+          <li><a href="#" class="active">Painel de exames</a></li>
+          <li><a href="configuracoespaciente.html">Configurações</a></li>
+        </ul>
+      </nav>
+      
+    </div>
+  </header>
+
+  <div class="container">
+    <table class="tabs-table">
+      <tr>
+        <td onclick="window.location.href='agendar.html';">Agendar exames</td>
+        <td class="active" onclick="window.location.href='agendados.html';">Exames agendados</td>
+        <td onclick="window.location.href='resultados.html';">Resultados de exames</td>
+      </tr>
+    </table>
+
+    <div class="exams-box">
+        <div class="form-box">
+      <div class="form-group">
+        <label>Informe o novo local:</label>
+        <input type="text" placeholder="Digite o local do exame">
+      </div>
+      
+      <div class="form-group">
+        <label>Informe o novo tipo de exame:</label>
+        <input type="text" placeholder="Digite o tipo de exame">
+      </div>
+      
+      <div class="form-group">
+        <label>Informe a data:</label>
+        <input type="date">
+      </div>
+      
+      <div class="form-group">
+        <label>Informe o horário:</label>
+        <input type="time">
+      </div>
+      <a href="agendados.html">
+      <button class="submit-btn">Alterar</button>
+      <button class="submit-btn">Cancelar</button>
+      </a>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.tabs-table td').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tabs-table td').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.textContent.toLowerCase();
+        const examTitle = this.closest('.exam-item').querySelector('.exam-title').textContent;
+        
+        if(action === 'cancelar') {
+          if(confirm(`Deseja realmente cancelar o ${examTitle}?`)) {
+            alert(`${examTitle} cancelado com sucesso!`);
+          }
+        } else {
+          alert(`Redirecionando para alteração do ${examTitle}`);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

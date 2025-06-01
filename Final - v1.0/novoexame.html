@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Profissional</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 30px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .green {
+      color: #37BAA8;
+    }
+
+    .blue {
+      color: #3da9fc;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #444;
+    }
+
+    nav a.active {
+      font-weight: bold;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      background-color: #eee;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .tabs a {
+      text-decoration: none;
+      color: #999;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .tabs a.active {
+      color: black;
+    }
+
+    .tabs a:hover:not(.active) {
+      color: #666;
+    }
+
+    .container {
+      display: flex;
+      padding: 30px;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .patient-box {
+      width: 200px;
+      background: #e6f0fb;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 0 3px #ccc;
+    }
+
+    .patient-box img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .form-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 600px;
+      box-shadow: 0 0 5px #ccc;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      color: #3da9fc;
+      margin-top: 10px;
+    }
+
+    input {
+      margin-top: 5px;
+      padding: 10px;
+      background-color: #f2f2f2;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .back-link {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #3da9fc;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2A74A6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+    <nav>
+      <a href="homeprofissional.html">Home</a>
+      <a href="#" class="active">Painel do profissional</a>
+      <a href="configuracoes.html">Configurações</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <a href="exames_agendados.html" class="inactive">Exames agendados</a>
+      <a href="#" class="active">Paciente</a>
+      <a href="resultados_exames.html" class="inactive">Resultados de exames</a>
+    </div>
+
+    <div class="container">
+      <div class="patient-box">
+        <img src="https://via.placeholder.com/100" alt="Paciente" />
+        <p><strong>Nome:</strong><br>Janete Duarte Silva</p>
+        <p><strong>CPF:</strong><br>032.745.889-82</p>
+        <p><strong>RG:</strong><br>6026530</p>
+        <p><strong>Data de nascimento:</strong><br>10/05/2000</p>
+        <p><strong>Telefone:</strong><br>(62)99121-3285</p>
+      </div>
+
+      <div class="form-box">
+        <h2>Novo exame</h2>
+        <form>
+          <label>Informe o tipo de exame:</label>
+          <input type="text" />
+
+          <label>Informe o local:</label>
+          <input type="text" />
+
+          <label>Informe a data:</label>
+          <input type="date" />
+
+          <label>Informe o horário:</label>
+          <input type="time" />
+
+          <label>Observações:</label>
+          <input type="text" />
+
+          <div class="actions">
+            <a href="cadastro_paciente.html" class="back-link">← Voltar</a>
+            <a href="dados_paciente.html">
+              <button type="button">Cadastrar exame</button>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
