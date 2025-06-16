@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Estilos que são 100% específicos desta página */
         .search-container { display: flex; gap: 10px; margin-bottom: 30px; }
         .search-container input { flex-grow: 1; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; }
         .search-container button { padding: 12px 25px; font-size: 16px; cursor: pointer; border: none; border-radius: 8px; background-color: #3da9fc; color: white; }
@@ -55,10 +54,8 @@
     <script src="js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Diz ao script para carregar o layout e ativar a aba "Pacientes"
             carregarLayout('tab-pacientes');
 
-            // Lógica de busca específica desta página
             const btnBuscar = document.getElementById('btnBuscar');
             const termoBusca = document.getElementById('termoBusca');
             const tabelaCorpo = document.getElementById('tabelaResultados');
