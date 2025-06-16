@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Autenticação - Câncer Cervical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        /* CSS específico e correto para a página de login/autenticação */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+
+        .topbar {
+            background-color: #37BAA8;
+            height: 50px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .topbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .background {
+            background-image: url('public/ARTE_FELIPENHA.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .login-box {
+            background-color: rgba(255,255,255,0.88);
+            padding: 25px;
+            border-radius: 15px;
+            width: 320px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .login-box h2 span {
+            font-weight: normal;
+        }
+
+        .login-box b {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .login-box select,
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-box .btn-secondary {
+            background-color: #6c757d;
+            margin-top: 0px;
+        }
+        .login-box .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .login-box a {
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .password-wrapper input {
+            padding-right: 35px;
+            margin-bottom: 0;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .azul button {
+            background-color: #5DA4DE;
+            color: white;
+        }
+
+        .azul button:hover {
+            background-color: #2A74A6;
+        }
+
+        .verde button {
+            background-color: #17E29B;
+            color: white;
+        }
+
+        .verde button:hover {
+            background-color: #2da895;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 5px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <a href="home_inicial.html">Home</a>
+        <a href="index.html">Entrar</a>
+        <a href="cadastrar_profissional.html">Cadastrar</a>
+    </div>
+
+    <div class="background">
+        <form class="login-box azul active" id="loginForm">
+            <h2>
+                <span style="color:#17E29B;">CANCER</span> 
+                <span style="color:#4FA8E3;">CERVICAL</span>
+            </h2>
+            <b>ENTRAR:</b>
+            <select id="tipoUsuarioLogin">
+                <option value="paciente">Paciente</option>
+                <option value="profissional" selected>Profissional</option>
+            </select>
+            <input type="text" id="campoUsuarioLogin" placeholder="Informe seu e-mail" required>
+            <div class="password-wrapper">
+                <input type="password" id="senhaLogin" placeholder="Senha:" required>
+                <span class="toggle-password" id="toggleSenhaLogin">👁️</span>
+            </div>
+            <button type="submit">Entrar</button>
+            
+            <button type="button" class="btn-secondary" onclick="window.location.href='cadastrar_profissional.html'">Não tenho conta</button>
+            
+            <p id="login-error-message" class="error-message"></p>
+            <p> Esqueceu a senha? <a href="#"><span style="text-decoration: underline;">Clique Aqui</span></a></p>
+        </form>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
