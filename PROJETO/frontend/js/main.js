@@ -1,4 +1,4 @@
-// Arquivo: frontend/js/main.js
+
 function carregarPainel(abaAtiva) {
     fetch('components/painel_template.html')
         .then(response => {
@@ -10,23 +10,19 @@ function carregarPainel(abaAtiva) {
         .then(data => {
             document.getElementById('panel-placeholder').innerHTML = data;
             
-            // Lógica para destacar a aba correta
             if (abaAtiva) {
                 const aba = document.getElementById(abaAtiva);
                 if (aba) {
                     aba.classList.add('active');
-                    // Também destaca o link principal "Painel do profissional" no header
                     document.getElementById('nav-painel').classList.add('active');
                 }
             }
             
-            // Lógica do usuário e logout
             const usuarioJSON = sessionStorage.getItem('usuarioLogado');
             if (usuarioJSON) {
                 const usuario = JSON.parse(usuarioJSON);
                 document.getElementById('user-name-display').textContent = `Dr(a). ${usuario.nome}`;
             } else {
-                // Se não houver sessão, redireciona para o login
                 window.location.href = 'index.html';
             }
         })
@@ -36,7 +32,6 @@ function carregarPainel(abaAtiva) {
         });
 }
 
-// O código desta função que você me passou já estava correto.
 function carregarLayout(paginaAtiva) {
     fetch('components/painel_template.html')
         .then(response => response.text())
