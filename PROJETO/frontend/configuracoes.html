@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Configurações da Conta</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .info-section {
+            margin-bottom: 40px;
+        }
+        .info-section h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info-list {
+            list-style: none;
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-item .label { font-weight: bold; color: #333; }
+        .info-item .value { color: #666; }
+        .info-item .edit-link { color: #3da9fc; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .logout-link { color: #d9534f; font-weight: bold; cursor: pointer; text-decoration: none; }
+
+        .modal-backdrop {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); z-index: 100;
+            justify-content: center; align-items: center;
+        }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; }
+        .modal-content h2 { margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .modal-actions { margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px; }
+        .btn { padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-primary { background-color: #28a745; color: white; }
+        .btn-secondary { background-color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo"><span class="green">CANCER</span> <span class="blue">CERVICAL</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="homeprofissional.html">Home</a></li>
+                <li><a href="agenda.html">Painel do profissional</a></li>
+                <li><a href="configuracoes.html" class="active">Configurações</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="user-info-bar">
+        <span class="user-name" id="user-name-display">A carregar...</span>
+    </div>
+
+    <div class="container">
+        <div class="content-box">
+            <h1>Configurações da Conta</h1>
+            <section class="info-section">
+                <h2>Informações do Profissional</h2>
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span class="label">Nome</span>
+                        <span class="value" id="info-nome">...</span>
+                        <a class="edit-link" data-modal-target="modal-nome">Editar</a>
+                    </li>
+                    <li class="info-item">
+                        <span class="label">Email</span>
+                        <span class="value" id="info-email">...</span>
+                        <span>(não pode ser alterado)</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="label">CRM</span>
+                        <span class="value" id="info-crm">...</span>
+                        <a class="edit-link" data-modal-target="modal-crm">Editar</a>
+                    </li>
+                    <li class="info-item">
+                        <span class="label">Palavra-passe</span>
+                        <span class="value">********</span>
+                        <a class="edit-link" data-modal-target="modal-senha">Editar</a>
+                    </li>
+                </ul>
+            </section>
+            <section class="info-section">
+                <a href="#" id="logout-final" class="logout-link">Sair da conta</a>
+            </section>
+        </div>
+    </div>
+
+    <div id="modal-nome" class="modal-backdrop">
+        <div class="modal-content">
+            <h2>Alterar Nome</h2>
+            <form id="form-nome">
+                <div class="form-group">
+                    <label for="input-nome">Novo nome completo:</label>
+                    <input type="text" id="input-nome" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="modal-crm" class="modal-backdrop">
+        <div class="modal-content">
+            <h2>Alterar CRM</h2>
+            <form id="form-crm">
+                <div class="form-group">
+                    <label for="input-crm">Novo CRM:</label>
+                    <input type="text" id="input-crm" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="modal-senha" class="modal-backdrop">
+        <div class="modal-content">
+            <h2>Alterar Palavra-passe</h2>
+            <p style="text-align:center;">(Funcionalidade a ser implementada)</p>
+             <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" data-modal-close>Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuarioJSON = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioJSON) { window.location.href = './index.html'; return; }
+            const usuario = JSON.parse(usuarioJSON);
+
+            document.getElementById('user-name-display').textContent = `Dr(a). ${usuario.nome}`;
+            document.getElementById('info-nome').textContent = usuario.nome;
+            document.getElementById('info-email').textContent = usuario.email;
+            document.getElementById('info-crm').textContent = usuario.crm || 'Não informado';
+            
+            document.querySelectorAll('[data-modal-target]').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modalId = button.dataset.modalTarget;
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        if (modalId === 'modal-nome') {
+                            document.getElementById('input-nome').value = usuario.nome;
+                        } else if (modalId === 'modal-crm') {
+                            document.getElementById('input-crm').value = usuario.crm || '';
+                        }
+                        modal.style.display = 'flex';
+                    }
+                });
+            });
+            document.querySelectorAll('[data-modal-close]').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal-backdrop').style.display = 'none';
+                });
+            });
+
+            document.getElementById('form-nome').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const novoNome = { id: usuario.id, nome: document.getElementById('input-nome').value };
+                try {
+                    const response = await fetch('http://localhost:8080/profissionais/atualizar/nome', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(novoNome)
+                    });
+                    if(!response.ok) throw new Error('Falha ao atualizar o nome.');
+                    
+                    alert('Nome atualizado com sucesso!');
+                    usuario.nome = novoNome.nome;
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                    document.getElementById('info-nome').textContent = usuario.nome;
+                    document.getElementById('user-name-display').textContent = `Dr(a). ${usuario.nome}`;
+                    document.getElementById('modal-nome').style.display = 'none';
+                } catch (error) { 
+                    alert('Erro: ' + error.message); 
+                }
+            });
+
+            document.getElementById('form-crm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const novoCrm = { id: usuario.id, crm: document.getElementById('input-crm').value };
+                 try {
+                    const response = await fetch('http://localhost:8080/profissionais/atualizar/crm', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(novoCrm)
+                    });
+                    if(!response.ok) throw new Error('Falha ao atualizar o CRM.');
+
+                    alert('CRM atualizado com sucesso!');
+                    usuario.crm = novoCrm.crm;
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                    document.getElementById('info-crm').textContent = usuario.crm;
+                    document.getElementById('modal-crm').style.display = 'none';
+                } catch (error) { 
+                    alert('Erro: ' + error.message); 
+                }
+            });
+            
+            document.getElementById('logout-final').addEventListener('click', (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem('usuarioLogado');
+                window.location.href = './index.html';
+            });
+        });
+    </script>
+</body>
+</html>
