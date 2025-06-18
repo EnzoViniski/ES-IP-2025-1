@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Profissional - Câncer Cervical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+
+        .topbar {
+            background-color: #37BAA8;
+            height: 50px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .topbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .background {
+            background-image: url('public/ARTE_FELIPENHA.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .login-box {
+            background-color: rgba(255,255,255,0.88);
+            padding: 25px;
+            border-radius: 15px;
+            width: 380px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .login-box h2 span {
+            font-weight: normal;
+        }
+
+        .login-box b {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .password-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .password-wrapper input {
+            padding-right: 35px;
+            margin-bottom: 0;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .azul input::placeholder,
+        .azul .toggle-password {
+            color: #5DA4DE;
+        }
+
+        .azul button {
+            background-color: #5DA4DE;
+            color: white;
+        }
+
+        .azul button:hover {
+            background-color: #2A74A6;
+        }
+
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <a href="home_inicial.html">Home</a>
+        <a href="index.html">Entrar</a>
+        <a href="cadastrar_profissional.html">Cadastrar</a>
+    </div>
+
+    <div class="background">
+        <div class="login-box azul">
+            <h2>
+                <span style="color:#17E29B;">CANCER</span> 
+                <span style="color:#4FA8E3;">CERVICAL</span>
+            </h2>
+            <b>CADASTRO DE PROFISSIONAL:</b>
+            
+            <form id="cadastroProfissionalForm">
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="crm" placeholder="CRM (ou outro registro)" required>
+                <input type="email" id="email" placeholder="E-mail de Acesso" required>
+                <div class="password-wrapper">
+                    <input type="password" id="senha" placeholder="Senha" required>
+                    <span class="toggle-password" onclick="togglePassword('senha')">👁️</span>
+                </div>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmar_senha" placeholder="Confirme a Senha" required>
+                    <span class="toggle-password" onclick="togglePassword('confirmar_senha')">👁️</span>
+                </div>
+                <button type="submit">Finalizar Cadastro</button>
+                <p id="error-message" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(id) {
+            const senhaInput = document.getElementById(id);
+            senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+        }
+
+        document.getElementById('cadastroProfissionalForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar_senha').value;
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = '';
+
+            if (senha !== confirmarSenha) {
+                errorMessage.textContent = 'As senhas não conferem!';
+                return;
+            }
+
+            const dados = {
+                nome: document.getElementById('nome').value,
+                crm: document.getElementById('crm').value,
+                email: document.getElementById('email').value,
+                senha: senha
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/profissionais/registrar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok) {
+                    alert('Cadastro realizado com sucesso! Você será redirecionado para a tela de login.');
+                    window.location.href = 'index.html';
+                } else {
+                    errorMessage.textContent = resultado.erro || 'Ocorreu um erro inesperado.';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Erro de conexão. O servidor está rodando?';
+            }
+        });
+    </script>
+</body>
+</html>
