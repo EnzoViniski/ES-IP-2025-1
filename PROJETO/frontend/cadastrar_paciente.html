@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Paciente - Painel do Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .form-container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #fff;
+        }
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-primary { background-color: #3da9fc; color: white; }
+        .btn-secondary { background-color: #ccc; color: #333; }
+        
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+            text-decoration: none;
+        }
+        .btn-voltar:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="layout-placeholder"></div>
+    
+    <div class="container">
+        <a href="painel_pacientes.html" class="btn-voltar">← Voltar</a>
+
+        <div class="form-container">
+            <h1>Cadastro de Nova Paciente</h1>
+            <form id="cadastroPacienteForm">
+                <div class="form-grid">
+                    <div class="form-group full-width"><label for="nome_completo">Nome Completo</label><input type="text" id="nome_completo" name="nome_completo" required></div>
+                    <div class="form-group"><label for="apelido">Apelido</label><input type="text" id="apelido" name="apelido"></div>
+                    <div class="form-group"><label for="data_nascimento">Data de Nascimento</label><input type="date" id="data_nascimento" name="data_nascimento"></div>
+                    <div class="form-group"><label for="escolaridade">Escolaridade</label><select id="escolaridade" name="escolaridade"><option value="">Não declarado</option><option value="Analfabeta">Analfabeta</option><option value="Fundamental Incompleto">Fundamental Incompleto</option><option value="Fundamental Completo">Fundamental Completo</option><option value="Médio Incompleto">Médio Incompleto</option><option value="Médio Completo">Médio Completo</option><option value="Superior Incompleto">Superior Incompleto</option><option value="Superior Completo">Superior Completo</option><option value="Pós-graduação">Pós-graduação</option></select></div>
+                    <div class="form-group"><label for="raca">Raça/Cor</label><select id="raca" name="raca"><option value="">Não declarado</option><option value="Branca">Branca</option><option value="Preta">Preta</option><option value="Parda">Parda</option><option value="Amarela">Amarela</option><option value="Indigena">Indígena</option></select></div>
+                    <div class="form-group"><label for="nacionalidade">Nacionalidade</label><input type="text" id="nacionalidade" name="nacionalidade" value="Brasileira"></div>
+                    <div class="form-group"><label for="cartao_sus">Cartão SUS</label><input type="text" id="cartao_sus" name="cartao_sus"></div>
+                    <div class="form-group"><label for="cpf">CPF</label><input type="text" id="cpf" name="cpf"></div>
+                    <div class="form-group"><label for="rg">RG</label><input type="text" id="rg" name="rg"></div>
+                    <div class="form-group"><label for="telefone">Telefone</label><input type="tel" id="telefone" name="telefone"></div>
+                    <div class="form-group full-width"><label for="email">E-mail</label><input type="email" id="email" name="email"></div>
+                    <div class="form-group"><label for="cep">CEP</label><input type="text" id="cep" name="cep"></div>
+                    <div class="form-group"><label for="uf">UF</label><select id="uf" name="uf"><option value="">Selecionar</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+                    <div class="form-group full-width"><label for="logradouro">Logradouro (Rua, Av.)</label><input type="text" id="logradouro" name="logradouro"></div>
+                    <div class="form-group"><label for="numero">Número</label><input type="text" id="numero" name="numero"></div>
+                    <div class="form-group"><label for="complemento">Complemento</label><input type="text" id="complemento" name="complemento"></div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='painel_pacientes.html'">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Paciente</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarLayout('tab-pacientes');
+
+            document.getElementById('cadastroPacienteForm').addEventListener('submit', async function(event) {
+                event.preventDefault(); 
+                
+                const dadosPaciente = {
+                    nome_completo: document.getElementById('nome_completo').value,
+                    apelido: document.getElementById('apelido').value,
+                    data_nascimento: document.getElementById('data_nascimento').value,
+                    escolaridade: document.getElementById('escolaridade').value,
+                    raca: document.getElementById('raca').value,
+                    nacionalidade: document.getElementById('nacionalidade').value,
+                    cpf: document.getElementById('cpf').value,
+                    rg: document.getElementById('rg').value,
+                    cartao_sus: document.getElementById('cartao_sus').value,
+                    email: document.getElementById('email').value,
+                    telefone: document.getElementById('telefone').value,
+                    cep: document.getElementById('cep').value,
+                    uf: document.getElementById('uf').value,
+                    logradouro: document.getElementById('logradouro').value,
+                    numero: document.getElementById('numero').value,
+                    complemento: document.getElementById('complemento').value
+                };
+
+                try {
+                    const response = await fetch('http://localhost:8080/pacientes/cadastrar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dadosPaciente)
+                    });
+
+                    if (response.ok) {
+                        alert('Paciente registada com sucesso!');
+                        event.target.reset(); 
+                    } else {
+                        const errorJson = await response.json();
+                        alert(Erro ao registar: ${errorJson.erro});
+                    }
+                } catch (error) {
+                    alert('Erro de ligação. Verifique se o servidor está a ser executado.');
+                    console.error('Erro no fetch:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
