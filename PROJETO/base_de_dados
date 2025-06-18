@@ -1,0 +1,53 @@
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    crm VARCHAR(20), 
+    senha_hash TEXT NOT NULL 
+);
+
+CREATE TABLE paciente (
+    id SERIAL PRIMARY KEY,
+    nome_completo TEXT NOT NULL,
+    email TEXT,
+    telefone VARCHAR(20),
+    cpf VARCHAR(14) UNIQUE,
+    rg VARCHAR(20),
+    data_nascimento DATE,
+    cartao_sus VARCHAR(20),
+    -- Endereço
+    cep VARCHAR(9),
+    logradouro TEXT,
+    numero VARCHAR(10),
+    complemento TEXT,
+	apelido TEXT,
+	raca TEXT,
+	nacionalidade TEXT,
+	escolaridade TEXT,
+    uf VARCHAR(2)
+);
+
+CREATE TABLE exame (
+    id SERIAL PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_usuario_marcou INT NOT NULL,
+    tipo_exame TEXT NOT NULL,
+    data_exame DATE NOT NULL,
+    horario_exame TIME NOT NULL,
+    local_exame TEXT,
+    status VARCHAR(20) DEFAULT 'Agendado', 
+    data_criacao TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_paciente FOREIGN KEY(id_paciente) REFERENCES paciente(id) ON DELETE CASCADE,
+    CONSTRAINT fk_usuario FOREIGN KEY(id_usuario_marcou) REFERENCES usuario(id)
+);
+DELETE FROM usuario;
+
+
+SELECT * FROM exame;
+SELECT * FROM usuario;
+DELETE FROM paciente;
+
+CREATE INDEX idx_paciente_nome ON paciente (nome_completo);
+CREATE INDEX idx_paciente_cpf ON paciente (cpf);
+CREATE INDEX idx_exame_id_paciente ON exame (id_paciente);
