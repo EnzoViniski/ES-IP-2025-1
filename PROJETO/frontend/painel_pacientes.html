@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel - Pacientes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { background-color: #f5f5f5; }
+
+        .navbar { display: flex; justify-content: space-between; align-items: center; background-color: white; padding: 15px 40px; border-bottom: 1px solid #ddd; }
+        .logo { font-size: 20px; font-weight: bold; }
+        .logo .green { color: #37BAA8; }
+        .logo .blue { color: #3da9fc; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 500; }
+        .nav-links a.active { font-weight: bold; color: #000; }
+        .user-info-bar { display: flex; justify-content: flex-end; align-items: center; padding: 10px 40px; background-color: #e9e9e9; }
+        .user-name { font-weight: bold; color: #333; }
+        .tabs { display: flex; justify-content: center; background-color: #eee; padding: 0; font-weight: 500; border-bottom: 1px solid #ddd; }
+        .tabs a { text-decoration: none; color: #666; padding: 15px 30px; border-bottom: 3px solid transparent; }
+        .tabs a:hover { background-color: #e0e0e0; }
+        .tabs a.active { color: #3da9fc; border-bottom: 3px solid #3da9fc; font-weight: bold; }
+
+        .container { padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .content-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; }
+        .content-box h1 { margin-bottom: 30px; color: #333; }
+        .actions-container { display: flex; justify-content: center; gap: 40px; }
+        .action-item { display: flex; flex-direction: column; align-items: center; max-width: 250px; }
+        .action-item p { margin-bottom: 15px; color: #666; font-size: 15px; }
+        .action-item .btn { display: inline-block; padding: 12px 30px; border-radius: 8px; background-color: #3da9fc; color: white; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    
+    <div id="panel-placeholder"></div>
+
+    <div class="container">
+        <div class="content-box">
+            <h1>Gerenciamento de Pacientes</h1>
+            <div class="actions-container">
+                <div class="action-item">
+                    <p>Registre uma nova paciente no sistema, inserindo seus dados demográficos e de contato.</p>
+                    <a href="cadastrar_paciente.html" class="btn">Cadastrar Nova Paciente</a>
+                </div>
+                <div class="action-item">
+                    <p>Localize uma paciente existente pelo nome ou CPF para ver seu histórico ou editar seus dados.</p>
+                    <a href="buscar_paciente.html" class="btn">Buscar Paciente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarPainel('tab-pacientes');
+        });
+    </script>
+</body>
+</html>
