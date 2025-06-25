@@ -71,13 +71,26 @@ type PacienteDetalhesResponse struct {
 	Paciente PacienteCompleto `json:"paciente"`
 	Exames   []ExameDetalhe   `json:"exames"`
 }
+type Paciente struct { // Nova struct para dados básicos do paciente para login
+	ID        int    `json:"id"`
+	Nome      string `json:"nome"` // Nome Completo do Paciente
+	Email     string `json:"email"`
+	CPF       string `json:"cpf"`
+	SenhaHash string `json:"-"`
+}
 
+// Nova struct para a requisição de login do paciente
+type LoginPacienteRequest struct {
+	Identificador string `json:"identificador"` // Pode ser e-mail ou CPF
+	Senha         string `json:"senha"`
+}
 // --- MAIN ---
 func main() {
 	initDB()
 	defer db.Close()
 
 	http.HandleFunc("/login/profissional", enableCORS(loginHandler))
+	http.HandleFunc("/login/paciente", enableCORS(loginPacienteHandler))
 	http.HandleFunc("/profissionais/registrar", enableCORS(registrarProfissionalHandler))
 	http.HandleFunc("/profissionais/atualizar/nome", enableCORS(atualizarNomeHandler))
 	http.HandleFunc("/profissionais/atualizar/crm", enableCORS(atualizarCrmHandler))
@@ -236,6 +249,51 @@ func atualizarCrmHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"mensagem": "CRM atualizado com sucesso"})
+}
+// NOVO HANDLER PARA LOGIN DE PACIENTE
+func loginPacienteHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "Método não permitido"})
+		return
+	}
+	var req LoginPacienteRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "Pedido inválido"})
+		return
+	}
+
+	var p Paciente
+	query := "SELECT id, nome_completo, email, cpf, senha_hash FROM paciente WHERE email = $1 OR cpf = $2"
+	err := db.QueryRow(query, req.Identificador, req.Identificador).Scan(&p.ID, &p.Nome, &p.Email, &p.CPF, &p.SenhaHash)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			w.WriteHeader(http.StatusUnauthorized)
+			json.NewEncoder(w).Encode(map[string]string{"erro": "E-mail/CPF ou palavra-passe inválidos"})
+		} else {
+			log.Println("Erro ao buscar paciente para login:", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"erro": "Erro interno no servidor"})
+		}
+		return
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(p.SenhaHash), []byte(req.Senha))
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "E-mail/CPF ou palavra-passe inválidos"})
+		return
+	}
+
+	// Retorna dados do paciente sem o hash da senha
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"id":    p.ID,
+		"nome":  p.Nome,
+		"email": p.Email,
+		"cpf":   p.CPF,
+	})
 }
 
 // --- HANDLERS (PACIENTE E EXAMES) ---
