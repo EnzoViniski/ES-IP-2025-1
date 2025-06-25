@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const tipoUsuarioLogin = document.getElementById('tipoUsuarioLogin');
@@ -18,26 +16,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const identificador = campoUsuarioLogin.value;
         const senha = senhaLogin.value;
 
-        if (tipoUsuario === 'profissional') {
-            try {
-                const response = await fetch('http://localhost:8080/login/profissional', {
+        try {
+            let response;
+            let resultado;
+
+            if (tipoUsuario === 'profissional') {
+                response = await fetch('http://localhost:8080/login/profissional', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: identificador, senha: senha })
                 });
-                const resultado = await response.json();
+                resultado = await response.json();
+
                 if (response.ok) {
                     alert(`Login bem-sucedido! Bem-vindo(a), ${resultado.nome}!`);
                     sessionStorage.setItem('usuarioLogado', JSON.stringify(resultado));
-                    window.location.href = 'homeprofissional.html';
+                    window.location.href = 'homeprofissional.html'; // Redireciona para a home do profissional
                 } else {
-                    loginErrorMessage.textContent = resultado.erro || 'Credenciais inválidas.';
+                    loginErrorMessage.textContent = resultado.erro || 'Credenciais inválidas para profissional.';
                 }
-            } catch (error) {
-                loginErrorMessage.textContent = 'Erro de conexão. O servidor está rodando?';
+            } else if (tipoUsuario === 'paciente') {
+                // Lógica de login para paciente
+                response = await fetch('http://localhost:8080/login/paciente', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ identificador: identificador, senha: senha })
+                });
+                resultado = await response.json();
+
+                if (response.ok) {
+                    alert(`Login bem-sucedido! Bem-vindo(a), ${resultado.nome}!`);
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify(resultado));
+                    window.location.href = 'homepaciente.html'; // Redireciona para a home do paciente
+                } else {
+                    loginErrorMessage.textContent = resultado.erro || 'Credenciais inválidas para paciente.';
+                }
             }
-        } else {
-            alert('Login de paciente ainda não implementado.');
+        } catch (error) {
+            console.error('Erro no login:', error);
+            loginErrorMessage.textContent = 'Erro de conexão. O servidor está rodando?';
         }
     }
 
@@ -52,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
             loginForm.classList.remove("verde");
             loginForm.classList.add("azul");
             campoUsuarioLogin.placeholder = "Informe seu e-mail ou CRM:";
-        } else {
+        } else { // tipo === "paciente"
             loginForm.classList.remove("azul");
             loginForm.classList.add("verde");
             campoUsuarioLogin.placeholder = "Informe seu e-mail ou CPF:";
         }
     }
 
-    atualizarInterfaceLogin();
+    atualizarInterfaceLogin(); // Chama na inicialização para definir o placeholder correto
 });
