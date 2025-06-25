@@ -3,175 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Novo Exame</title>
+    <title>Agendar Novo Exame e Anamnese</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css"> <style>
-        /* Estilos específicos para esta página, se necessário, ou mantenha-os no style.css */
-        .form-container {
-            background-color: #fff;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-        .form-group label {
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #333;
-        }
-        .form-group input, .form-group select {
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            background-color: #fff;
-        }
-        .form-actions {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 12px 30px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .form-container { background-color: #fff; padding: 30px 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; }
+        .form-column { display: flex; flex-direction: column; }
+        .form-group { display: flex; flex-direction: column; margin-bottom: 15px; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        label { margin-bottom: 8px; font-weight: 500; color: #333; }
+        input, select, textarea { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; font-family: 'Roboto', sans-serif; }
+        small { color: #666; font-size: 12px; margin-top: -5px; margin-bottom: 5px; }
+        .form-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; }
+        .btn { padding: 12px 30px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; }
         .btn-primary { background-color: #3da9fc; color: white; }
         .btn-secondary { background-color: #ccc; color: #333; }
-        
-        .btn-voltar {
-            display: inline-block;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #555;
-            text-decoration: none;
-        }
-        .btn-voltar:hover {
-            color: #000;
-        }
+        .btn-voltar { display: inline-block; margin-bottom: 20px; font-weight: bold; color: #555; text-decoration: none; }
     </style>
 </head>
 <body>
-
     <div id="layout-placeholder"></div>
-    
     <div class="container">
-        <a href="#" id="link-voltar-paciente" class="btn-voltar">← Voltar para Detalhes da Paciente</a>
-
+        <a href="#" id="link-voltar" class="btn-voltar">← Voltar para os Detalhes da Paciente</a>
         <div class="form-container">
-            <h1>Agendar Novo Exame</h1>
-            <form id="formAgendarExame">
-                <input type="hidden" id="id_paciente" name="id_paciente"> 
-
+            <h1 id="titulo-form">Agendar Exame e Registrar Anamnese</h1>
+            <form id="agendarExameForm">
+                <input type="hidden" id="id_paciente" name="id_paciente">
+                <div class="form-group full-width"><h3>Dados do Agendamento</h3></div>
                 <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label for="tipo_exame">Tipo de Exame</label>
-                        <input type="text" id="tipo_exame" name="tipo_exame" required>
+                    <div class="form-group"><label for="tipo_exame">Tipo de Exame*</label><input type="text" id="tipo_exame" name="tipo_exame" placeholder="Ex: Papanicolau"></div>
+                    <div class="form-group"><label for="local_exame">Local do Exame*</label><input type="text" id="local_exame" name="local_exame" placeholder="Ex: Clínica da Mulher"></div>
+                    <div class="form-group"><label for="data_exame">Data*</label><input type="date" id="data_exame" name="data_exame" required></div>
+                    <div class="form-group"><label for="horario_exame">Horário*</label><input type="time" id="horario_exame" name="horario_exame" required></div>
+                    <div class="form-group full-width"><label for="observacoes">Observações do Agendamento</label><textarea id="observacoes" name="observacoes" rows="2"></textarea></div>
+                </div>
+                <div class="form-group full-width" style="margin-top: 20px;"><h3>Anamnese Clínica</h3></div>
+                <div class="form-grid">
+                    <div class="form-column">
+                        <div class="form-group"><label for="motivo_exame">Motivo do exame:*</label><input type="text" id="motivo_exame"></div>
+                        <div class="form-group"><label>Fez preventivo (Papanicolau) alguma vez?*</label><select id="fez_preventivo"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label>Usa DIU?*</label><select id="usa_diu"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label>Está grávida?*</label><select id="esta_gravida"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label>Usa pílula anticoncepcional?*</label><select id="usa_pilula"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
                     </div>
-                    <div class="form-group">
-                        <label for="data_exame">Data do Exame</label>
-                        <input type="date" id="data_exame" name="data_exame" required>
+                    <div class="form-column">
+                        <div class="form-group"><label>Usa hormônio/remédio para menopausa?</label><select id="trata_menopausa"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label>Já fez tratamento por radioterapia?</label><select id="fez_radioterapia"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label for="data_ultima_menstruacao">Data da última menstruação*</label><input type="text" id="data_ultima_menstruacao" placeholder="DD/MM/AAAA ou 'Não se aplica'"></div>
+                        <div class="form-group"><label>Sangramento após relações sexuais?</label><small>(não considerar primeira relação)</small><select id="sangramento_pos_relacao"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+                        <div class="form-group"><label>Sangramento após a menopausa?</label><small>(não considerar na reposição hormonal)</small><select id="sangramento_pos_menopausa"><option value="">Não informado</option><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
                     </div>
-                    <div class="form-group">
-                        <label for="horario_exame">Horário</label>
-                        <input type="time" id="horario_exame" name="horario_exame" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="local_exame">Local do Exame</label>
-                        <input type="text" id="local_exame" name="local_exame" required>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Agendar Exame</button>
-                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Exame e Anamnese</button>
                 </div>
             </form>
         </div>
     </div>
-    
-    <script src="js/main.js"></script> 
+    <script src="js/main.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Carrega o layout do painel (navbar e user-info-bar) e ativa a aba "Pacientes"
-            carregarLayout('tab-pacientes'); 
-
-            const formAgendarExame = document.getElementById('formAgendarExame');
-            const idPacienteInput = document.getElementById('id_paciente');
-            const linkVoltarPaciente = document.getElementById('link-voltar-paciente');
-
-            // 1. Captura o ID do paciente da URL (ex: agendar_exame.html?pacienteId=123)
+        document.addEventListener('DOMContentLoaded', async () => {
+            carregarLayout('tab-pacientes');
             const params = new URLSearchParams(window.location.search);
             const pacienteId = params.get('pacienteId');
+            const usuarioJSON = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioJSON) { window.location.href = 'index.html'; return; }
+            const usuario = JSON.parse(usuarioJSON);
+            if (!pacienteId) { document.querySelector('.container').innerHTML = '<h1>ERRO: ID da paciente não fornecido.</h1>'; return; }
 
-            if (pacienteId) {
-                idPacienteInput.value = pacienteId; // Preenche o campo oculto
-                // 2. Atualiza o link de "Voltar" para que ele volte para a página de detalhes do paciente correto
-                linkVoltarPaciente.href = `paciente_detalhe.html?id=${pacienteId}`;
-            } else {
-                 // Se não houver ID do paciente na URL, exibe um alerta e redireciona
-                 alert('Erro: ID do paciente não fornecido para agendar o exame.');
-                 window.location.href = 'painel_pacientes.html'; // Redireciona para o painel de pacientes
-                 return;
-            }
+            document.getElementById('id_paciente').value = pacienteId;
+            const voltarUrl = paciente_detalhe.html?id=${pacienteId};
+            document.getElementById('link-voltar').href = voltarUrl;
+            document.getElementById('btn-cancelar').onclick = () => window.location.href = voltarUrl;
 
-            // 3. Adiciona o ouvinte de evento para o envio do formulário
-            formAgendarExame.addEventListener('submit', async function(event) {
-                event.preventDefault(); // Impede o envio padrão do formulário (que recarregaria a página)
-
-                // Coleta os dados do formulário
-                const dadosExame = {
-                    id_paciente: parseInt(idPacienteInput.value), // Converte para número inteiro
+            document.getElementById('agendarExameForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const dadosExameCompleto = {
+                    id_paciente: parseInt(document.getElementById('id_paciente').value),
+                    id_usuario_marcou: usuario.id,
                     tipo_exame: document.getElementById('tipo_exame').value,
+                    local_exame: document.getElementById('local_exame').value,
                     data_exame: document.getElementById('data_exame').value,
                     horario_exame: document.getElementById('horario_exame').value,
-                    local_exame: document.getElementById('local_exame').value,
-                    status: "Agendado" // Define o status inicial como 'Agendado'
+                    observacoes: document.getElementById('observacoes').value,
+                    motivo_exame: document.getElementById('motivo_exame').value,
+                    fez_preventivo: document.getElementById('fez_preventivo').value,
+                    usa_diu: document.getElementById('usa_diu').value,
+                    esta_gravida: document.getElementById('esta_gravida').value,
+                    usa_pilula: document.getElementById('usa_pilula').value,
+                    trata_menopausa: document.getElementById('trata_menopausa').value,
+                    fez_radioterapia: document.getElementById('fez_radioterapia').value,
+                    data_ultima_menstruacao: document.getElementById('data_ultima_menstruacao').value,
+                    sangramento_pos_relacao: document.getElementById('sangramento_pos_relacao').value,
+                    sangramento_pos_menopausa: document.getElementById('sangramento_pos_menopausa').value
                 };
-
+                
                 try {
-                    // Envia os dados para o novo endpoint do backend
                     const response = await fetch('http://localhost:8080/exames/agendar', {
-                        method: 'POST', // Método HTTP POST para enviar dados
-                        headers: { 
-                            'Content-Type': 'application/json' // Informa que o corpo é JSON
-                        },
-                        body: JSON.stringify(dadosExame) // Converte o objeto JS para string JSON
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dadosExameCompleto)
                     });
-
-                    // Verifica se a requisição foi bem-sucedida (status 2xx)
                     if (response.ok) {
-                        alert('Exame agendado com sucesso!');
-                        // Redireciona para a página da agenda do profissional
-                        // A página 'agenda.html' tem um script que recarrega os agendamentos no DOMContentLoaded
-                        window.location.href = 'agenda.html'; 
-                    } else {
-                        // Se houver um erro na resposta do servidor
-                        const errorJson = await response.json(); // Tenta ler a mensagem de erro do servidor
-                        alert(`Erro ao agendar exame: ${errorJson.erro || 'Ocorreu um erro desconhecido.'}`);
-                    }
-                } catch (error) {
-                    // Se houver um erro na conexão (servidor desligado, etc.)
-                    alert('Erro de conexão ao agendar exame. Verifique se o servidor está rodando.');
-                    console.error('Erro no fetch:', error);
-                }
+                        alert('Exame e anamnese salvos com sucesso!');
+                        window.location.href = voltarUrl;
+                    } else { const err = await response.json(); alert(Erro ao salvar: ${err.erro}); }
+                } catch (error) { alert('Erro de conexão. Verifique o console e se o servidor está rodando.'); console.error('Erro no fetch:', error); }
             });
         });
     </script>
