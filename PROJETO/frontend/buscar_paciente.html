@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .search-container { display: flex; gap: 10px; margin-bottom: 30px; }
-        .search-container input { flex-grow: 1; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; }
-        .search-container button { padding: 12px 25px; font-size: 16px; cursor: pointer; border: none; border-radius: 8px; background-color: #3da9fc; color: white; }
-        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .results-table th, .results-table td { padding: 12px 15px; border-bottom: 1px solid #ddd; text-align: left; }
-        .results-table thead { background-color: #f8f8f8; }
-        .results-table tbody tr:hover { background-color: #f5f5f5; }
-        .btn-edit { padding: 6px 12px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        #feedback { margin-top: 20px; text-align: center; color: #777; font-size: 16px; }
-        .btn-voltar { display: inline-block; margin-bottom: 20px; font-weight: bold; color: #555; text-decoration: none; }
-        .btn-voltar:hover { color: #000; }
+        /* Estilos que são 100% específicos desta página */
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-container input {
+            flex-grow: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .search-container button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #3da9fc;
+            color: white;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .results-table thead {
+            background-color: #f8f8f8;
+        }
+
+        .results-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-edit {
+            padding: 6px 12px;
+            background-color: #ffc107;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            color: #000;
+        }
     </style>
 </head>
+
 <body>
     <div id="layout-placeholder"></div>
 
@@ -44,7 +108,7 @@
                         </tr>
                     </thead>
                     <tbody id="tabelaResultados">
-                        </tbody>
+                    </tbody>
                 </table>
                 <p id="feedback">Digite um termo e clique em buscar para ver os resultados.</p>
             </div>
@@ -54,8 +118,10 @@
     <script src="js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Diz ao script para carregar o layout e ativar a aba "Pacientes"
             carregarLayout('tab-pacientes');
 
+            // Lógica de busca específica desta página
             const btnBuscar = document.getElementById('btnBuscar');
             const termoBusca = document.getElementById('termoBusca');
             const tabelaCorpo = document.getElementById('tabelaResultados');
@@ -73,9 +139,9 @@
                 feedback.style.display = 'block';
 
                 try {
-                    const response = await fetch(`http://localhost:8080/pacientes/buscar?termo=${termo}`);
+                    const response = await fetch(http://localhost:8080/pacientes/buscar?termo=${termo});
                     if (!response.ok) throw new Error('Erro na resposta do servidor.');
-                    
+
                     const pacientes = await response.json();
 
                     if (!pacientes || pacientes.length === 0) {
@@ -89,7 +155,7 @@
                                 <td>${paciente.nome_completo}</td>
                                 <td>${paciente.cpf}</td>
                                 <td>
-                                    <a href="paciente_detalhe.html?id=${paciente.id}" class="btn-edit">Ver Detalhes</a>
+                                    <a href="paciente_detalhe.html?id=${paciente.id}&contexto=pacientes" class="btn-edit">Ver Detalhes</a>
                                 </td>
                             `;
                             tabelaCorpo.appendChild(tr);
@@ -102,7 +168,7 @@
             }
 
             btnBuscar.addEventListener('click', buscarPacientes);
-            termoBusca.addEventListener('keyup', function(event) {
+            termoBusca.addEventListener('keyup', function (event) {
                 if (event.key === 'Enter') {
                     buscarPacientes();
                 }
@@ -110,4 +176,5 @@
         });
     </script>
 </body>
+
 </html>
