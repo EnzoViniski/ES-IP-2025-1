@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Novo Exame</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"> <style>
+        /* Estilos específicos para esta página, se necessário, ou mantenha-os no style.css */
+        .form-container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #fff;
+        }
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary { background-color: #3da9fc; color: white; }
+        .btn-secondary { background-color: #ccc; color: #333; }
+        
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+            text-decoration: none;
+        }
+        .btn-voltar:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
 
+    <div id="layout-placeholder"></div>
+    
+    <div class="container">
+        <a href="#" id="link-voltar-paciente" class="btn-voltar">← Voltar para Detalhes da Paciente</a>
+
+        <div class="form-container">
+            <h1>Agendar Novo Exame</h1>
+            <form id="formAgendarExame">
+                <input type="hidden" id="id_paciente" name="id_paciente"> 
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="tipo_exame">Tipo de Exame</label>
+                        <input type="text" id="tipo_exame" name="tipo_exame" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="data_exame">Data do Exame</label>
+                        <input type="date" id="data_exame" name="data_exame" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="horario_exame">Horário</label>
+                        <input type="time" id="horario_exame" name="horario_exame" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="local_exame">Local do Exame</label>
+                        <input type="text" id="local_exame" name="local_exame" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Agendar Exame</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carrega o layout do painel (navbar e user-info-bar) e ativa a aba "Pacientes"
+            carregarLayout('tab-pacientes'); 
+
+            const formAgendarExame = document.getElementById('formAgendarExame');
+            const idPacienteInput = document.getElementById('id_paciente');
+            const linkVoltarPaciente = document.getElementById('link-voltar-paciente');
+
+            // 1. Captura o ID do paciente da URL (ex: agendar_exame.html?pacienteId=123)
+            const params = new URLSearchParams(window.location.search);
+            const pacienteId = params.get('pacienteId');
+
+            if (pacienteId) {
+                idPacienteInput.value = pacienteId; // Preenche o campo oculto
+                // 2. Atualiza o link de "Voltar" para que ele volte para a página de detalhes do paciente correto
+                linkVoltarPaciente.href = `paciente_detalhe.html?id=${pacienteId}`;
+            } else {
+                 // Se não houver ID do paciente na URL, exibe um alerta e redireciona
+                 alert('Erro: ID do paciente não fornecido para agendar o exame.');
+                 window.location.href = 'painel_pacientes.html'; // Redireciona para o painel de pacientes
+                 return;
+            }
+
+            // 3. Adiciona o ouvinte de evento para o envio do formulário
+            formAgendarExame.addEventListener('submit', async function(event) {
+                event.preventDefault(); // Impede o envio padrão do formulário (que recarregaria a página)
+
+                // Coleta os dados do formulário
+                const dadosExame = {
+                    id_paciente: parseInt(idPacienteInput.value), // Converte para número inteiro
+                    tipo_exame: document.getElementById('tipo_exame').value,
+                    data_exame: document.getElementById('data_exame').value,
+                    horario_exame: document.getElementById('horario_exame').value,
+                    local_exame: document.getElementById('local_exame').value,
+                    status: "Agendado" // Define o status inicial como 'Agendado'
+                };
+
+                try {
+                    // Envia os dados para o novo endpoint do backend
+                    const response = await fetch('http://localhost:8080/exames/agendar', {
+                        method: 'POST', // Método HTTP POST para enviar dados
+                        headers: { 
+                            'Content-Type': 'application/json' // Informa que o corpo é JSON
+                        },
+                        body: JSON.stringify(dadosExame) // Converte o objeto JS para string JSON
+                    });
+
+                    // Verifica se a requisição foi bem-sucedida (status 2xx)
+                    if (response.ok) {
+                        alert('Exame agendado com sucesso!');
+                        // Redireciona para a página da agenda do profissional
+                        // A página 'agenda.html' tem um script que recarrega os agendamentos no DOMContentLoaded
+                        window.location.href = 'agenda.html'; 
+                    } else {
+                        // Se houver um erro na resposta do servidor
+                        const errorJson = await response.json(); // Tenta ler a mensagem de erro do servidor
+                        alert(`Erro ao agendar exame: ${errorJson.erro || 'Ocorreu um erro desconhecido.'}`);
+                    }
+                } catch (error) {
+                    // Se houver um erro na conexão (servidor desligado, etc.)
+                    alert('Erro de conexão ao agendar exame. Verifique se o servidor está rodando.');
+                    console.error('Erro no fetch:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
