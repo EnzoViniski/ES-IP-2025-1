@@ -34,6 +34,24 @@ type Usuario struct {
 	SenhaHash string  `json:"-"`
 }
 
+type ExameDetalheCompleto struct {
+	ID                   int     `json:"id"`
+	IDPaciente           int     `json:"id_paciente"`
+	NomePaciente         string  `json:"nome_paciente"`
+	TipoExame            string  `json:"tipo_exame"`
+	DataExame            string  `json:"data_exame"`
+	Status               string  `json:"status"`
+	Resultado            *string `json:"resultado"`
+	DiagnosticoSugestivo *string `json:"diagnostico_sugestivo"`
+}
+
+type ResultadoRequest struct {
+	ID                   int    `json:"id"`
+	Status               string `json:"status"`
+	Resultado            string `json:"resultado"`
+	DiagnosticoSugestivo string `json:"diagnostico_sugestivo"`
+}
+
 type LoginRequest struct {
 	Email string `json:"email"`
 	Senha string `json:"senha"`
@@ -67,39 +85,38 @@ type ExameDetalhe struct {
 	Local     *string `json:"local_exame"`
 }
 
+type ExameCompletoRequest struct {
+	IDPaciente              int    `json:"id_paciente"`
+	IDUsuarioMarcou         int    `json:"id_usuario_marcou"` // Incluído para corresponder à sua tabela
+	TipoExame               string `json:"tipo_exame"`
+	LocalExame              string `json:"local_exame"`
+	DataExame               string `json:"data_exame"`
+	HorarioExame            string `json:"horario_exame"`
+	Status                  string `json:"status"`
+	Observacoes             string `json:"observacoes"`
+	MotivoExame             string `json:"motivo_exame"`
+	FezPreventivo           string `json:"fez_preventivo"`
+	UsaDiu                  string `json:"usa_diu"`
+	EstaGravida             string `json:"esta_gravida"`
+	UsaPilula               string `json:"usa_pilula"`
+	TrataMenopausa          string `json:"trata_menopausa"`
+	FezRadioterapia         string `json:"fez_radioterapia"`
+	DataUltimaMenstruacao   string `json:"data_ultima_menstruacao"`
+	SangramentoPosRelacao   string `json:"sangramento_pos_relacao"`
+	SangramentoPosMenopausa string `json:"sangramento_pos_menopausa"`
+}
+
 type PacienteDetalhesResponse struct {
 	Paciente PacienteCompleto `json:"paciente"`
 	Exames   []ExameDetalhe   `json:"exames"`
 }
-type Paciente struct { // Nova struct para dados básicos do paciente para login
-	ID        int    `json:"id"`
-	Nome      string `json:"nome"` // Nome Completo do Paciente
-	Email     string `json:"email"`
-	CPF       string `json:"cpf"`
-	SenhaHash string `json:"-"`
-}
 
-// Nova struct para a requisição de login do paciente
-type LoginPacienteRequest struct {
-	Identificador string `json:"identificador"` // Pode ser e-mail ou CPF
-	Senha         string `json:"senha"`
-}
-// Nova struct para receber dados de um novo exame a ser agendado
-type NovoExameRequest struct {
-    IDPaciente  int    `json:"id_paciente"`
-    TipoExame   string `json:"tipo_exame"`
-    DataExame   string `json:"data_exame"`    // Formato YYYY-MM-DD
-    HorarioExame string `json:"horario_exame"` // Formato HH:MM
-    LocalExame  string `json:"local_exame"`
-    Status      string `json:"status"` // Ex: "Agendado", "Realizado"
-}
 // --- MAIN ---
 func main() {
 	initDB()
 	defer db.Close()
 
 	http.HandleFunc("/login/profissional", enableCORS(loginHandler))
-	http.HandleFunc("/login/paciente", enableCORS(loginPacienteHandler))
 	http.HandleFunc("/profissionais/registrar", enableCORS(registrarProfissionalHandler))
 	http.HandleFunc("/profissionais/atualizar/nome", enableCORS(atualizarNomeHandler))
 	http.HandleFunc("/profissionais/atualizar/crm", enableCORS(atualizarCrmHandler))
@@ -109,6 +126,8 @@ func main() {
 	http.HandleFunc("/pacientes/editar", enableCORS(editarPacienteHandler))
 	http.HandleFunc("/exames/por-mes", enableCORS(examesPorMesHandler))
 	http.HandleFunc("/exames/agendar", enableCORS(agendarExameHandler))
+	http.HandleFunc("/exames/detalhes", enableCORS(exameDetalhesHandler))
+	http.HandleFunc("/exames/lancar-resultado", enableCORS(lancarResultadoHandler))
 
 	fmt.Println("✅ Servidor Backend a ser executado na porta 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
@@ -199,6 +218,76 @@ func registrarProfissionalHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"mensagem": "Utilizador criado com sucesso"})
 }
 
+func exameDetalhesHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	exameID := r.URL.Query().Get("id")
+	if exameID == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "ID do exame não fornecido"})
+		return
+	}
+
+	var exame ExameDetalheCompleto
+	query := `
+		SELECT e.id, e.id_paciente, p.nome_completo, e.tipo_exame, e.data_exame, e.status, e.resultado, e.diagnostico_sugestivo 
+		FROM exame e
+		JOIN paciente p ON e.id_paciente = p.id
+		WHERE e.id = $1`
+
+	var dataExame time.Time
+	err := db.QueryRow(query, exameID).Scan(
+		&exame.ID, &exame.IDPaciente, &exame.NomePaciente, &exame.TipoExame, &dataExame,
+		&exame.Status, &exame.Resultado, &exame.DiagnosticoSugestivo,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"erro": "Exame não encontrado"})
+		} else {
+			log.Println("Erro ao buscar detalhes do exame:", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"erro": "Erro interno"})
+		}
+		return
+	}
+	exame.DataExame = dataExame.Format("2006-01-02")
+	json.NewEncoder(w).Encode(exame)
+}
+
+// Handler para salvar o resultado de um exame
+func lancarResultadoHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req ResultadoRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "JSON inválido"})
+		return
+	}
+
+	query := `
+		UPDATE exame 
+		SET status = $1, resultado = $2, diagnostico_sugestivo = $3
+		WHERE id = $4`
+
+	_, err := db.Exec(query, req.Status, req.Resultado, req.DiagnosticoSugestivo, req.ID)
+
+	if err != nil {
+		log.Println("Erro ao atualizar resultado do exame:", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "Erro ao salvar resultado no banco de dados"})
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"mensagem": "Resultado salvo com sucesso"})
+}
+
 func atualizarNomeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if r.Method != "POST" {
@@ -259,51 +348,6 @@ func atualizarCrmHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"mensagem": "CRM atualizado com sucesso"})
-}
-// NOVO HANDLER PARA LOGIN DE PACIENTE
-func loginPacienteHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	if r.Method != "POST" {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		json.NewEncoder(w).Encode(map[string]string{"erro": "Método não permitido"})
-		return
-	}
-	var req LoginPacienteRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"erro": "Pedido inválido"})
-		return
-	}
-
-	var p Paciente
-	query := "SELECT id, nome_completo, email, cpf, senha_hash FROM paciente WHERE email = $1 OR cpf = $2"
-	err := db.QueryRow(query, req.Identificador, req.Identificador).Scan(&p.ID, &p.Nome, &p.Email, &p.CPF, &p.SenhaHash)
-	if err != nil {
-		if err == sql.ErrNoRows {
-			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(map[string]string{"erro": "E-mail/CPF ou palavra-passe inválidos"})
-		} else {
-			log.Println("Erro ao buscar paciente para login:", err)
-			w.WriteHeader(http.StatusInternalServerError)
-			json.NewEncoder(w).Encode(map[string]string{"erro": "Erro interno no servidor"})
-		}
-		return
-	}
-
-	err = bcrypt.CompareHashAndPassword([]byte(p.SenhaHash), []byte(req.Senha))
-	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(w).Encode(map[string]string{"erro": "E-mail/CPF ou palavra-passe inválidos"})
-		return
-	}
-
-	// Retorna dados do paciente sem o hash da senha
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		"id":    p.ID,
-		"nome":  p.Nome,
-		"email": p.Email,
-		"cpf":   p.CPF,
-	})
 }
 
 // --- HANDLERS (PACIENTE E EXAMES) ---
@@ -418,6 +462,68 @@ func buscarPacientesHandler(w http.ResponseWriter, r *http.Request) {
 		pacientes = append(pacientes, p)
 	}
 	json.NewEncoder(w).Encode(pacientes)
+}
+func agendarExameHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "Método não permitido"})
+		return
+	}
+
+	var req ExameCompletoRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "JSON inválido ou mal formatado"})
+		return
+	}
+
+	// Validação mínima
+	if req.IDPaciente == 0 || req.IDUsuarioMarcou == 0 || req.DataExame == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "ID da paciente, ID do usuário e data do exame são obrigatórios."})
+		return
+	}
+
+	// Permite que o horário seja nulo/vazio, mas a sua tabela exige (NOT NULL), então o frontend deve garantir o envio.
+	var horarioExame sql.NullString
+	if req.HorarioExame != "" {
+		horarioExame.String = req.HorarioExame
+		horarioExame.Valid = true
+	} else {
+		// Se a sua coluna horario_exame for NOT NULL, este braço do else pode ser um problema.
+		// O ideal é garantir que o frontend sempre envie um valor.
+		horarioExame.Valid = false
+	}
+
+	if req.Status == "" {
+		req.Status = "Agendado"
+	}
+
+	// Query COMPLETA para inserir todos os campos da anamnese
+	query := `
+        INSERT INTO exame (
+            id_paciente, id_usuario_marcou, tipo_exame, local_exame, data_exame, horario_exame, status, observacoes,
+            motivo_exame, fez_preventivo, usa_diu, esta_gravida, usa_pilula, trata_menopausa,
+            fez_radioterapia, data_ultima_menstruacao, sangramento_pos_relacao, sangramento_pos_menopausa
+        ) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`
+
+	_, err := db.Exec(query,
+		req.IDPaciente, req.IDUsuarioMarcou, req.TipoExame, req.LocalExame, req.DataExame, horarioExame, req.Status, req.Observacoes,
+		req.MotivoExame, req.FezPreventivo, req.UsaDiu, req.EstaGravida, req.UsaPilula, req.TrataMenopausa,
+		req.FezRadioterapia, req.DataUltimaMenstruacao, req.SangramentoPosRelacao, req.SangramentoPosMenopausa,
+	)
+
+	if err != nil {
+		log.Println("Erro ao inserir novo exame completo:", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"erro": "Erro interno ao salvar o exame. Verifique o log do servidor."})
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]string{"mensagem": "Exame agendado e anamnese salva com sucesso!"})
 }
 
 func pacienteDetalhesHandler(w http.ResponseWriter, r *http.Request) {
@@ -665,8 +771,6 @@ func editarPacienteHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"mensagem": "Paciente atualizada com sucesso!"})
 }
-
-
 
 // --- UTILITÁRIOS ---
 func initDB() {
