@@ -84,6 +84,15 @@ type LoginPacienteRequest struct {
 	Identificador string `json:"identificador"` // Pode ser e-mail ou CPF
 	Senha         string `json:"senha"`
 }
+// Nova struct para receber dados de um novo exame a ser agendado
+type NovoExameRequest struct {
+    IDPaciente  int    `json:"id_paciente"`
+    TipoExame   string `json:"tipo_exame"`
+    DataExame   string `json:"data_exame"`    // Formato YYYY-MM-DD
+    HorarioExame string `json:"horario_exame"` // Formato HH:MM
+    LocalExame  string `json:"local_exame"`
+    Status      string `json:"status"` // Ex: "Agendado", "Realizado"
+}
 // --- MAIN ---
 func main() {
 	initDB()
@@ -99,6 +108,7 @@ func main() {
 	http.HandleFunc("/pacientes/detalhes", enableCORS(pacienteDetalhesHandler))
 	http.HandleFunc("/pacientes/editar", enableCORS(editarPacienteHandler))
 	http.HandleFunc("/exames/por-mes", enableCORS(examesPorMesHandler))
+	http.HandleFunc("/exames/agendar", enableCORS(agendarExameHandler))
 
 	fmt.Println("✅ Servidor Backend a ser executado na porta 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
@@ -655,6 +665,8 @@ func editarPacienteHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"mensagem": "Paciente atualizada com sucesso!"})
 }
+
+
 
 // --- UTILITÁRIOS ---
 func initDB() {
