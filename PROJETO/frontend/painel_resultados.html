@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Exames - Painel do Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .search-container { display: flex; gap: 10px; margin-bottom: 30px; }
+        .search-container input { flex-grow: 1; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; }
+        .search-container button { padding: 12px 25px; font-size: 16px; cursor: pointer; border: none; border-radius: 8px; background-color: #3da9fc; color: white; }
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .results-table th, .results-table td { padding: 12px 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        .results-table thead { background-color: #f8f8f8; }
+        .btn-details { padding: 6px 12px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        #feedback { margin-top: 20px; text-align: center; color: #777; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div id="layout-placeholder"></div>
+    <div class="container">
+        <div class="content-box">
+            <h1>Lançar Resultados de Exames</h1>
+            <p style="text-align:center; color:#666; margin-bottom:20px;">Primeiro, busque pela paciente para ver a lista de exames pendentes.</p>
+            <div class="search-container">
+                <input type="text" id="termoBusca" placeholder="Digite o nome ou CPF da paciente...">
+                <button id="btnBuscar">Buscar</button>
+            </div>
+            <div class="results-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Nome Completo</th>
+                            <th>CPF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaResultados"></tbody>
+                </table>
+                <p id="feedback">Digite um termo e clique em buscar para ver os resultados.</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarLayout('tab-resultados'); // Ativa a aba "Resultados"
+
+            const btnBuscar = document.getElementById('btnBuscar');
+            const termoBusca = document.getElementById('termoBusca');
+            const tabelaCorpo = document.getElementById('tabelaResultados');
+            const feedback = document.getElementById('feedback');
+
+            async function buscarPacientes() {
+                const termo = termoBusca.value.trim();
+                if (!termo) { alert('Por favor, digite um nome ou CPF.'); return; }
+
+                tabelaCorpo.innerHTML = '';
+                feedback.textContent = 'Buscando...';
+
+                try {
+                    const response = await fetch(http://localhost:8080/pacientes/buscar?termo=${termo});
+                    const pacientes = await response.json();
+
+                    if (!pacientes || pacientes.length === 0) {
+                        feedback.textContent = 'Nenhuma paciente encontrada.';
+                    } else {
+                        feedback.style.display = 'none';
+                        pacientes.forEach(paciente => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${paciente.nome_completo}</td>
+                                <td>${paciente.cpf}</td>
+                                <td>
+                                    <a href="paciente_detalhe.html?id=${paciente.id}&contexto=resultados" class="btn-details">Ver Exames</a>
+                                </td>
+                            `;
+                            tabelaCorpo.appendChild(tr);
+                        });
+                    }
+                } catch (error) {
+                    feedback.textContent = 'Erro ao conectar ao servidor.';
+                }
+            }
+            btnBuscar.addEventListener('click', buscarPacientes);
+            termoBusca.addEventListener('keyup', e => e.key === 'Enter' && buscarPacientes());
+        });
+    </script>
+</body>
+</html>
