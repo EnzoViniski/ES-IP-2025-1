@@ -1,38 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Detalhes da Paciente</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 1. Ligação para o nosso ficheiro de CSS unificado -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .page-title { font-size: 24px; font-weight: 700; color: #333; margin-bottom: 30px; }
-        .section-title { font-size: 20px; border-bottom: 2px solid #3da9fc; padding-bottom: 10px; margin-bottom: 20px; }
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px 30px; margin-bottom: 25px; }
-        .detail-item { padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .detail-item strong { font-size: 14px; color: #555; display: block; margin-bottom: 4px; }
-        .detail-item span { font-size: 16px; color: #000; }
-        .actions-bar { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 15px; }
-        .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; text-align: center; }
-        .btn-primary { background-color: #3da9fc; color: white; }
-        .btn-warning { background-color: #ffc107; color: black; }
-        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .results-table th, .results-table td { padding: 12px 15px; border-bottom: 1px solid #ddd; text-align: left; }
-        .results-table thead { background-color: #f8f8f8; }
-        .results-table tbody tr:hover { background-color: #f5f5f5; }
-        .btn-voltar { display: inline-block; margin-bottom: 20px; font-weight: bold; color: #555; text-decoration: none; }
-        .btn-voltar:hover { color: #000; }
+        /* Estilos que são 100% específicos desta página */
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            border-bottom: 2px solid #3da9fc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px 30px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-item strong {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .detail-item span {
+            font-size: 16px;
+            color: #000;
+        }
+
+        .actions-bar {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #3da9fc;
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .results-table thead {
+            background-color: #f8f8f8;
+        }
+
+        .results-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            color: #000;
+        }
     </style>
 </head>
+
 <body>
+    <!-- Placeholder que vai carregar o nosso layout padrão -->
     <div id="layout-placeholder"></div>
 
     <div class="container">
+        <!-- Botão "Voltar" adicionado -->
         <a href="buscar_paciente.html" class="btn-voltar">← Voltar para a Busca</a>
 
         <div class="content-box">
             <h1 class="page-title" id="nome-paciente-titulo">Carregando dados da paciente...</h1>
-            
+
             <div id="info-paciente">
                 <h3 class="section-title">Dados Cadastrais</h3>
                 <div class="details-grid" id="dados-cadastrais-grid"></div>
@@ -44,7 +132,7 @@
             <div id="info-exames" style="margin-top: 40px;">
                 <h3 class="section-title">Histórico de Exames</h3>
                 <table class="results-table">
-                     <thead>
+                    <thead>
                         <tr>
                             <th>ID Exame</th>
                             <th>Tipo de Exame</th>
@@ -55,81 +143,102 @@
                     </thead>
                     <tbody id="tabela-exames-corpo"></tbody>
                 </table>
-                 <div class="actions-bar">
+                <div class="actions-bar">
                     <a href="#" id="btn-novo-exame" class="btn btn-primary">Agendar Novo Exame</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
-    <script>
-        function formatarDado(dado) {
-            return dado || '<span style="color:#999;">Não informado</span>';
+    <!-- Scripts -->
+    // Substitua todo o script de paciente_detalhe.html por este:
+<script src="js/main.js"></script>
+<script>
+    function formatarDado(dado) {
+        return dado || '<span style="color:#999;">Não informado</span>';
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        carregarLayout('tab-pacientes'); // Mantém o layout padrão
+
+        const params = new URLSearchParams(window.location.search);
+        const pacienteId = params.get('id');
+        // MUDANÇA AQUI: Lendo o novo parâmetro de contexto da URL
+        const contexto = params.get('contexto') || 'pacientes'; // Se não houver contexto, assume 'pacientes'
+
+        const contentBox = document.querySelector('.content-box');
+
+        if (!pacienteId) {
+            contentBox.innerHTML = '<h1>Erro: ID da paciente não fornecido na URL.</h1>';
+            return;
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            carregarLayout('tab-pacientes');
+        document.getElementById('btn-editar-dados').href = `editar_paciente.html?id=${pacienteId}`;
+        document.getElementById('btn-novo-exame').href = `agendar_exame.html?pacienteId=${pacienteId}`;
 
-            const params = new URLSearchParams(window.location.search);
-            const pacienteId = params.get('id');
-            const contentBox = document.querySelector('.content-box');
-
-            if (!pacienteId) {
-                contentBox.innerHTML = '<h1>Erro: ID da paciente não fornecido na URL.</h1>';
-                return;
-            }
+        try {
+            const response = await fetch(`http://localhost:8080/pacientes/detalhes?id=${pacienteId}`);
+            if (!response.ok) throw new Error('Falha ao buscar dados da paciente.');
             
-            document.getElementById('btn-editar-dados').href = editar_paciente.html?id=${pacienteId};
-            document.getElementById('btn-novo-exame').href = agendar_exame.html?pacienteId=${pacienteId};
+            const data = await response.json();
+            const p = data.paciente;
+            document.getElementById('nome-paciente-titulo').textContent = `Detalhes da Paciente: ${p.nome_completo}`;
 
-            try {
-                const response = await fetch(http://localhost:8080/pacientes/detalhes?id=${pacienteId});
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.erro || 'Falha ao buscar dados da paciente.');
-                }
-                const data = await response.json();
-                
-                const p = data.paciente;
-                document.getElementById('nome-paciente-titulo').textContent = Nome da Paciente: ${p.nome_completo};
-                const grid = document.getElementById('dados-cadastrais-grid');
-                grid.innerHTML = `
-                    <div class="detail-item"><strong>Apelido:</strong> <span>${formatarDado(p.apelido)}</span></div>
-                    <div class="detail-item"><strong>Data de Nasc.:</strong> <span>${p.data_nascimento ? new Date(p.data_nascimento).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'Não informado'}</span></div>
-                    <div class="detail-item"><strong>CPF:</strong> <span>${formatarDado(p.cpf)}</span></div>
-                    <div class="detail-item"><strong>RG:</strong> <span>${formatarDado(p.rg)}</span></div>
-                    <div class="detail-item"><strong>Cartão SUS:</strong> <span>${formatarDado(p.cartao_sus)}</span></div>
-                    <div class="detail-item"><strong>Telefone:</strong> <span>${formatarDado(p.telefone)}</span></div>
-                    <div class="detail-item"><strong>Email:</strong> <span>${formatarDado(p.email)}</span></div>
-                    <div class="detail-item"><strong>Endereço:</strong> <span>${formatarDado(p.logradouro)}, Nº ${formatarDado(p.numero)} - ${formatarDado(p.uf)}</span></div>
-                    <div class="detail-item"><strong>Nacionalidade:</strong> <span>${formatarDado(p.nacionalidade)}</span></div>
-                    <div class="detail-item"><strong>Raça/Cor:</strong> <span>${formatarDado(p.raca)}</span></div>
-                    <div class="detail-item"><strong>Escolaridade:</strong> <span>${formatarDado(p.escolaridade)}</span></div>
-                `;
+            // Preenche os dados cadastrais (código inalterado)
+            const grid = document.getElementById('dados-cadastrais-grid');
+            grid.innerHTML = `
+                <div class="detail-item"><strong>Apelido:</strong> <span>${formatarDado(p.apelido)}</span></div>
+                <div class="detail-item"><strong>Data de Nasc.:</strong> <span>${p.data_nascimento ? new Date(p.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : 'Não informado'}</span></div>
+                <div class="detail-item"><strong>CPF:</strong> <span>${formatarDado(p.cpf)}</span></div>
+                <div class="detail-item"><strong>RG:</strong> <span>${formatarDado(p.rg)}</span></div>
+                <div class="detail-item"><strong>Cartão SUS:</strong> <span>${formatarDado(p.cartao_sus)}</span></div>
+                <div class="detail-item"><strong>Telefone:</strong> <span>${formatarDado(p.telefone)}</span></div>
+                <div class="detail-item"><strong>Email:</strong> <span>${formatarDado(p.email)}</span></div>
+                <div class="detail-item"><strong>Endereço:</strong> <span>${formatarDado(p.logradouro)}, Nº ${formatarDado(p.numero)} - ${formatarDado(p.uf)}</span></div>
+                <div class="detail-item"><strong>Nacionalidade:</strong> <span>${formatarDado(p.nacionalidade)}</span></div>
+                <div class="detail-item"><strong>Raça/Cor:</strong> <span>${formatarDado(p.raca)}</span></div>
+                <div class="detail-item"><strong>Escolaridade:</strong> <span>${formatarDado(p.escolaridade)}</span></div>
+            `;
 
-                const tabelaExamesCorpo = document.getElementById('tabela-exames-corpo');
-                tabelaExamesCorpo.innerHTML = '';
-                if (data.exames && data.exames.length > 0) {
-                    data.exames.forEach(exame => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${exame.id}</td>
-                            <td>${exame.tipo_exame}</td>
-                            <td>${exame.data_exame}</td>
-                            <td>${exame.status}</td>
-                            <td><a href="#">Lançar Resultado</a> | <a href="#">Baixar</a></td>
-                        `;
-                        tabelaExamesCorpo.appendChild(tr);
-                    });
-                } else {
-                    tabelaExamesCorpo.innerHTML = <tr><td colspan="5" style="text-align:center;">Nenhum exame encontrado.</td></tr>;
-                }
+            // MUDANÇA PRINCIPAL AQUI: Lógica condicional para montar a tabela de exames
+            const tabelaExamesCorpo = document.getElementById('tabela-exames-corpo');
+            tabelaExamesCorpo.innerHTML = '';
 
-            } catch (error) {
-                contentBox.innerHTML = <h1>Erro ao Carregar Dados</h1><p>${error.message}</p><a href="buscar_paciente.html">Voltar para a busca</a>;
+            if (data.exames && data.exames.length > 0) {
+                data.exames.forEach(exame => {
+                    const tr = document.createElement('tr');
+                    let acaoHtml = ''; // Variável para guardar o HTML da ação
+
+                    if (contexto === 'resultados') {
+                        // Lógica para o fluxo de "Lançar Resultados"
+                        if (exame.status === 'Agendado') {
+                            acaoHtml = `<a href="lancar_resultado.html?exameId=${exame.id}" style="font-weight:bold; color:#E8A81B;">Lançar Resultado</a>`;
+                        } else {
+                            acaoHtml = `<a href="lancar_resultado.html?exameId=${exame.id}" style="color:green;">Ver/Editar Resultado</a>`;
+                        }
+                    } else {
+                        // Lógica para o fluxo de "Pacientes" (o padrão)
+                        acaoHtml = `<a href="#" onclick="alert('Funcionalidade de download não implementada.')" style="color:#007bff;">Baixar Exame</a>`;
+                    }
+
+                    tr.innerHTML = `
+                        <td>${exame.id}</td>
+                        <td>${exame.tipo_exame}</td>
+                        <td>${exame.data_exame}</td>
+                        <td>${exame.status}</td>
+                        <td>${acaoHtml}</td>
+                    `;
+                    tabelaExamesCorpo.appendChild(tr);
+                });
+            } else {
+                tabelaExamesCorpo.innerHTML = `<tr><td colspan="5" style="text-align:center;">Nenhum exame encontrado.</td></tr>`;
             }
-        });
-    </script>
+
+        } catch (error) {
+            contentBox.innerHTML = `<h1>Erro ao Carregar Dados</h1><p>${error.message}</p><a href="buscar_paciente.html">Voltar para a busca</a>`;
+        }
+    });
+</script>
 </body>
+
 </html>
