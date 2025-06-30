@@ -41,7 +41,6 @@ CREATE TABLE exame (
     CONSTRAINT fk_paciente FOREIGN KEY(id_paciente) REFERENCES paciente(id) ON DELETE CASCADE,
     CONSTRAINT fk_usuario FOREIGN KEY(id_usuario_marcou) REFERENCES usuario(id)
 );
-DELETE FROM usuario;
 
 
 SELECT * FROM exame;
